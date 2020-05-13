@@ -302,7 +302,7 @@ aside h2,
 .stretched-link::after,
 .nav-list li a:before,
 .nav-list li a:after,
-.article-quote::before,
+blockquote::before,
 .comment-date-and-reply time::after,
 aside h2::before,
 aside h2::after,
@@ -878,14 +878,16 @@ time,
 
 .single-article figure { margin-bottom: 24px; }
 
-.article-quote {
+blockquote {
     margin: 15px;
+    margin-left: 40px;
     padding: 15px;
     font-size: 2rem;
+    font-style: italic;
     line-height: 30px; 
 }
 
-.article-quote::before {
+blockquote::before {
     content: '"';
     margin-top: 16px;
     font-family: 'Coustard', serif;
@@ -893,12 +895,7 @@ time,
     color: #ee295f;   
 }
 
-.article-quote::after { content: ""; }
-
-.article-quote p { 
-    margin-left: 40px;
-    font-style: italic; 
-}
+blockquote::after { content: ""; }
 
 .article-tags { 
     -ms-flex-item-align: start; 
