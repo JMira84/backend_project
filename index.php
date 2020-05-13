@@ -18,4 +18,4 @@ if(isset($url_parts[1]) && in_array($url_parts[1], $controllers)) {
     $controller = $url_parts[1];
 }
 
-require("controllers".$controller.".php");
+require("controllers/".$controller.".php");

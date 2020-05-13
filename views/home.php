@@ -4,10 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pé de Cereja</title>
-        <?php require("./layouts/head.php")?>
+        <?php require("layouts/head.php")?>
     </head>
     <body>
-        <?php require("./layouts/header.php")?>
+        <?php require("layouts/header.php")?>
 
         <div class="carousel relative">
             <div class="slides carousel-content fade flex-column justify-center align-center relative">
@@ -87,15 +87,15 @@
                     <!--end pagination-->
                 </main>
 
-                <?php require("./layouts/aside.php")?>
+                <?php require("layouts/aside.php")?>
 
             </div><!--end main-aside-container-->
         </div><!--end container-->
 
-        <?php require("./layouts/back_to_top.php")?>
+        <?php require("layouts/back_to_top.php")?>
 
-        <?php require("./layouts/background.php")?>
+        <?php require("layouts/background.php")?>
 
-        <?php require("./layouts/footer.php")?>
+        <?php require("layouts/footer.php")?>
     </body>
 </html>
