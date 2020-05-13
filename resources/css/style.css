@@ -615,6 +615,11 @@ aside h2::after,
 
 .carousel-content { max-height: 600px; }
 
+.carousel-text {
+        width: 70%;
+        text-align: center;
+}
+
 .fade {
     -webkit-animation-name: fade;
             animation-name: fade;
@@ -1505,11 +1510,6 @@ input[name="search"] {
     .next { right: 30px; }
 
     .prev { left: 30px; }
-
-    .carousel-text {
-        width: 70%;
-        text-align: center;
-    }
 
     .carousel-text h2 { margin: 20px 0 30px 0; }
 
