@@ -10,24 +10,30 @@
         <?php require("layouts/header.php")?>
 
         <div class="carousel relative">
+<?php
+    foreach($articles as $article) {
+        echo '
             <div class="slides carousel-content fade flex-column justify-center align-center relative">
                 <div class="carousel-img">
-                    <img src="assets/images/travel_slideshow.png" alt="">
+                    <img src="assets/images/'. $article["article_img"] .'" alt="">
                 </div>
                 <div class="carousel-elements absolute display-flex flex-column align-center">
                     <div class="carousel-category">
-                        <a class="carousel-cat-link relative" href="">Escapadinhas</a>
+                        <a class="carousel-cat-link relative" href="">' . $article["category_name"] . '</a>
                     </div>
                     <div class="carousel-text">
                         <h2>
-                            <a href="article.html">Nome do Artigo</a>
+                            <a href="' . HOME_PATH . 'article/' . $article["article_id"] . '">' . $article["title"] . '</a>
                         </h2>
                     </div>
                     <div class="carousel-link">
-                        <a href="article.html">Ler mais</a>
+                        <a href="' . HOME_PATH . 'article/' . $article["article_id"] . '">Ler mais</a>
                     </div>
                 </div><!--end carousel-elements-->
             </div><!--end carousel-content-->
+        ';
+    }
+?>
 
             <div class="next-arrow">
                 <i class="next las la-arrow-right justify-center align-center absolute"></i>
