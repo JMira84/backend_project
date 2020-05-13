@@ -1,0 +1,1 @@
+<div class="brightness-effect absolute display-none"></div>
