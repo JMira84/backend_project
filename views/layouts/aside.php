@@ -3,7 +3,7 @@
         <div class="about-me display-flex flex-column align-center">
             <h2>Sobre mim</h2>
             <div class="about-me-img">
-                <img src="assets/images/20200324212714_646421.png" alt="">
+                <img src="../assets/images/20200324212714_646421.png" alt="">
             </div>
             <div class="about-text">
                 <p>Fusce id mauris auctor, sollicitudin sit amet, hendrerit risus. Aenean auctor erat. Cras dapibus
@@ -26,46 +26,26 @@
 
         <div class="latest-articles-container display-flex flex-column align-center">
             <h2>Artigos recentes</h2>
+<?php
+    foreach($latestArticles as $latestArticle) {
+        echo '
             <div class="latest-articles-mq display-flex flex-column align-center">
                 <div class="latest-articles display-flex align-center relative">
                     <div class="latest-articles-info display-flex flex-column">
                         <h3>
-                            <a class="stretched-link" href="article.html">Nome do Artigo</a>
+                            <a class="stretched-link" href="' . HOME_PATH . 'article/' . $latestArticle["article_id"] . '">' . $latestArticle["title"] . '</a>
                         </h3>
-                        <time datetime="2020-04-27">27 Abr, 2020</time>
+                        <time datetime="' . date("Y-m-d H:i:s", strtotime($latestArticle["created_at"])) . '">' . strftime("%e %B %Y", strtotime($latestArticle["created_at"])) . '</time>
                     </div>
                     <div class="latest-articles-img">
-                        <img src="assets/images/1011-5472x3648.jpg" alt="">
-                    </div>
-                </div>
-                <!--end latest-articles-->
-
-                <div class="latest-articles display-flex align-center relative">
-                    <div class="latest-articles-info display-flex flex-column">
-                        <h3>
-                            <a class="stretched-link" href="article.html">Nome do Artigo</a>
-                        </h3>
-                        <time datetime="2020-04-27">27 Abr, 2020</time>
-                    </div>
-                    <div class="latest-articles-img">
-                        <img src="assets/images/102-4320x3240.jpg" alt="">
-                    </div>
-                </div>
-                <!--end latest-articles-->
-
-                <div class="latest-articles display-flex align-center relative">
-                    <div class="latest-articles-info display-flex flex-column">
-                        <h3>
-                            <a class="stretched-link" href="article.html">Nome do Artigo</a>
-                        </h3>
-                        <time datetime="2020-04-27">27 Abr, 2020</time>
-                    </div>
-                    <div class="latest-articles-img">
-                        <img src="assets/images/1059-7360x4912.jpg" alt="">
+                        <img src="../assets/images/' . $latestArticle["article_img"] . '" alt="">
                     </div>
                 </div>
                 <!--end latest-articles-->
             </div>
+        ';
+    }
+?>
         </div>
         <!--end latest-articles-container-->
     </div>
