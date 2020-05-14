@@ -19,7 +19,6 @@ if($url_parts[2] === "category") {
     }    
 }
 
-list($articles, $paginations) = $articleModel->getList();
 $latestArticles = $articleModel->getLatestArticles();
 
 require("models/user.php");
