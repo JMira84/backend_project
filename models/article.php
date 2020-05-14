@@ -1,5 +1,5 @@
 <?php
-require("base.php");
+require_once("base.php");
 
 class Article extends Base {
     public function getList() {

@@ -4,6 +4,11 @@ require("models/article.php");
 $articleModel = new Article();
 $latestArticles = $articleModel->getLatestArticles();
 
+require("models/user.php");
+
+$userModel = new User();
+$mainAdmin = $userModel->getMainAdmin();
+
 if(empty($url_parts[2])) {
     header("HTTP/1.1 400 Bad Request");
     die("ID Inválido");
@@ -19,4 +24,3 @@ if(is_numeric($url_parts[2])) {
     
     require("views/article.php");
 }
-

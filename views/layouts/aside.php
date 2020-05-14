@@ -3,11 +3,14 @@
         <div class="about-me display-flex flex-column align-center">
             <h2>Sobre mim</h2>
             <div class="about-me-img">
-                <img src="../assets/images/20200324212714_646421.png" alt="">
+<?php
+    echo '
+                <img src="../assets/images/' . $mainAdmin["profile_img"] . '" alt="">
+    ';
+?>
             </div>
             <div class="about-text">
-                <p>Fusce id mauris auctor, sollicitudin sit amet, hendrerit risus. Aenean auctor erat. Cras dapibus
-                    dolor commodo.</p>
+                <p><?php echo $mainAdmin["about"];?></p>
             </div>
         </div>
 
