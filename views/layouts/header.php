@@ -3,7 +3,7 @@
         <div class="header-flex-container display-flex align-center relative">
             <div class="logo">
                 <h1>
-                    <img src="assets/images/logo/logo2.png" alt="This is the blog's logo">
+                    <img src="../assets/images/logo/logo2.png" alt="This is the blog's logo">
                 </h1>
             </div>
 
