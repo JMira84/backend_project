@@ -5,7 +5,7 @@
             <div class="about-me-img">
 <?php
     echo '
-                <img src="../assets/images/' . $mainAdmin["profile_img"] . '" alt="">
+                <img src="/assets/images/' . $mainAdmin["profile_img"] . '" alt="">
     ';
 ?>
             </div>
@@ -41,7 +41,7 @@
                         <time datetime="' . date("Y-m-d H:i:s", strtotime($latestArticle["created_at"])) . '">' . strftime("%e %B %Y", strtotime($latestArticle["created_at"])) . '</time>
                     </div>
                     <div class="latest-articles-img">
-                        <img src="../assets/images/' . $latestArticle["article_img"] . '" alt="">
+                        <img src="/assets/images/' . $latestArticle["article_img"] . '" alt="">
                     </div>
                 </div>
                 <!--end latest-articles-->
