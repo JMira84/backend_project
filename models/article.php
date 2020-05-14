@@ -14,7 +14,8 @@ class Article extends Base {
         $page_1 = ($page * $per_page) - $per_page;
 
         $query = $this->db->prepare('
-            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.profile_img, c.category_name
+            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.profile_img, c.category_name,
+            c.category_id
             FROM articles a
             INNER JOIN users u USING(user_id)
             INNER JOIN categories c USING(category_id)
@@ -58,7 +59,7 @@ class Article extends Base {
 
     public function getLatestArticles() {
         $query = $this->db->prepare('
-            SELECT a.article_id, a.title, a.created_at, a.article_img, c.category_name
+            SELECT a.article_id, a.title, a.created_at, a.article_img, c.category_name, c.category_id
             FROM articles a
             INNER JOIN categories c USING(category_id)
             ORDER BY created_at DESC

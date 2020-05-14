@@ -19,7 +19,7 @@
                 </div>
                 <div class="carousel-elements absolute display-flex flex-column align-center">
                     <div class="carousel-category">
-                        <a class="carousel-cat-link relative" href="' . HOME_PATH . 'browse/category' . $article["category_id"] . '">' . $latestArticle["category_name"] . '</a>
+                        <a class="carousel-cat-link relative" href="' . HOME_PATH . 'browse/category/' . $latestArticle["category_id"] . '">' . $latestArticle["category_name"] . '</a>
                     </div>
                     <div class="carousel-text">
                         <h2>
@@ -58,7 +58,7 @@
                                 </a>
                             </figure>
                             <div class="article-list-category">
-                                <a class="category-link relative" href="' . HOME_PATH . 'browse/category' . $article["category_id"] . '">' . $article["category_name"] . '</a>
+                                <a class="category-link relative" href="' . HOME_PATH . 'browse/category/' . $article["category_id"] . '">' . $article["category_name"] . '</a>
                             </div>
                             <div class="article-list-title">
                                 <h2>
