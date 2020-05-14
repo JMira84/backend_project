@@ -8,7 +8,7 @@ $url_parts = explode("/", $_SERVER["REQUEST_URI"]);
 // $url_parts[2] => action 
 // $url_parts[3] => optional 
 
-define("HOME_PATH", dirname($_SERVER["SCRIPT_NAME"]) . "/");
+define("HOME_PATH", dirname($_SERVER["SCRIPT_NAME"]));
 
 $controller = "home";
 
