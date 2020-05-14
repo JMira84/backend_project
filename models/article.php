@@ -27,6 +27,8 @@ class Article extends Base {
         $articles = $query->fetchAll(PDO::FETCH_ASSOC);
 
         $query = $this->db->prepare('
+            SELECT *
+            FROM articles
         ');
 
         $query->execute();

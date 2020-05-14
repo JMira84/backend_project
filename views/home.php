@@ -87,8 +87,31 @@
                     <!--end article-list-container-->
                     <div class="pagination">
                         <ul class="page-list display-flex justify-center flex-no-wrap">
-                            <li><a class="pages display-flex justify-center align-center" href="">1</a></li>
-                            <li><a class="pages display-flex justify-center align-center" href="">2</a></li>
+<?php
+    if(count($articles === 4)) {
+        for($i = 1; $i < $paginations; $i++) {
+            echo '
+                            <li>
+                                <a class="pages display-flex justify-center align-center" href="' . HOME_PATH . '?page=' . $i . '">' . $i . '</a>
+                            </li>
+            ';
+        }
+
+        if($paginations > 4) {
+            echo '
+                            <li>...</li>
+            ';
+        }
+
+        if($paginations > 3) {
+            echo '
+                            <li>
+                                <a class="pages display-flex justify-center align-center" href="' . HOME_PATH . '?page=' . $paginations . '">' . $paginations . '</a>
+                            </li>
+            ';
+        }
+    }
+?>
                             <li>
                                 <a class="pages display-flex justify-center align-center" href="">
                                     <i class="las la-angle-double-right"></i>
