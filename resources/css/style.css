@@ -882,8 +882,9 @@ time,
 .single-article figure { margin-bottom: 24px; }
 
 blockquote {
+    position: relative;
     margin: 15px;
-    margin-left: 40px;
+    margin-left: 60px;
     padding: 15px;
     font-size: 2rem;
     font-style: italic;
@@ -892,6 +893,7 @@ blockquote {
 
 blockquote::before {
     content: '"';
+    left: -33px;
     margin-top: 16px;
     font-family: 'Coustard', serif;
     font-size: 6rem;
