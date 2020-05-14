@@ -22,11 +22,13 @@
                                 <i class="sub-menu-arrow header-arrow las la-angle-right"></i>
                             </a>
                             <ul class="sub-list absolute">
-                                <li><a class="dropdown-links display-block" href="">Moda</a></li>
-                                <li><a class="dropdown-links display-block" href="">Dicas</a></li>
-                                <li><a class="dropdown-links display-block" href="">Receitas</a></li>
-                                <li><a class="dropdown-links display-block" href="">Mamãs e bebés</a></li>
-                                <li><a class="dropdown-links display-block" href="">Escapadinhas</a></li>
+<?php
+    foreach($categories as $category) {
+        echo '
+                                <li><a class="dropdown-links display-block" href="' . HOME_PATH . 'browse/category/' . $category["category_id"] . '">' . $category["category_name"] . '</a></li>
+        ';
+    }
+?>
                             </ul>
                         </li>
                         <li><a class="display-block" href="">Contacto</a></li>
