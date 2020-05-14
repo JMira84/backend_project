@@ -72,4 +72,22 @@ class Article extends Base {
 
         return $latestArticles;
     }
+
+    public function getByCategory($category_id) {
+        $query = $this->db->prepare("
+            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.profile_img, c.category_name,
+            c.category_id
+            FROM articles a
+            INNER JOIN users u USING(user_id)
+            INNER JOIN categories c USING(category_id)
+            WHERE a.category_id = ?
+            ORDER BY created_at DESC
+        ");
+
+        $query->execute([ $category_id ]);
+
+        $articles_by_cat = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $articles_by_cat;
+    }
 }
