@@ -615,10 +615,7 @@ aside h2::after,
 
 .carousel-content { max-height: 600px; }
 
-.carousel-text {
-        width: 70%;
-        text-align: center;
-}
+.carousel-text { text-align: center; }
 
 .fade {
     -webkit-animation-name: fade;
