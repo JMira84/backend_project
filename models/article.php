@@ -86,8 +86,8 @@ class Article extends Base {
 
         $query->execute([ $category_id ]);
 
-        $articles_by_cat = $query->fetchAll(PDO::FETCH_ASSOC);
+        $articles = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        return $articles_by_cat;
+        return $articles;
     }
 }
