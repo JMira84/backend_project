@@ -48,35 +48,41 @@
             <div class="main-aside-container display-flex">
                 <main>
                     <div class="article-list-container display-flex flex-row">
+<?php
+    foreach($articles as $article) {
+        echo '
                         <article class="article-list display-flex flex-column align-center">
                             <figure>
                                 <a href="article.html">
-                                    <img src="assets/images/1011-5472x3648.jpg" alt="">
+                                    <img src="assets/images/' . $article["article_img"] . '" alt="">
                                 </a>
                             </figure>
                             <div class="article-list-category">
-                                <a class="category-link relative" href="">Escapadinhas</a>
+                                <a class="category-link relative" href="">' . $article["category_name"] . '</a>
                             </div>
                             <div class="article-list-title">
                                 <h2>
-                                    <a class="title-link" href="article.html">Nome do Artigo</a>
+                                    <a class="title-link" href="' . HOME_PATH . 'article/' . $article["article_id"] . '">' . $article["title"] . '</a>
                                 </h2>
                             </div>
                             <div class="article-list-content">
-                                <p>Brig Nelsons folly ahoy league capstan. Man-of-war prow furl parrel red ensign. Tender bilge water gally swing the lead Davy Jones' Locker. Man-of-war...</p>
+                                ' . substr($article["content"], 0, 180) . '...
                             </div>
                             <div class="read-more-container">
-                                <a class="read-more-link" href="article.html">Ler mais</a>
+                                <a class="read-more-link" href="' . HOME_PATH . 'article/' . $article["article_id"] . '">Ler mais</a>
                             </div>
                             <div class="date-and-author display-flex space-between">
                                 <div class="article-list-date">
-                                    <time datetime="2020-04-27">27 Abr, 2020</time>
+                                    <time datetime="' . strtotime($article["created_at"]) . '">' . strftime('%e %B %Y', strtotime($article["created_at"])) . '</time>
                                 </div>
                                 <div class="article-list-author">
-                                    <p>por <a href="" title="Artigos de Autor">Autor</a></p>
+                                    <p>por <a href="" title="Artigos de ' . $article["username"] . '">' . $article["username"] . '</a></p>
                                 </div>
                             </div>
                         </article>
+        ';
+    }
+?>
                     </div>
                     <!--end article-list-container-->
                     <div class="pagination">
