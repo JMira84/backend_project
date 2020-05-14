@@ -15,7 +15,7 @@
             <nav class="navbar display-flex align-center space-evenly">
                 <div class="nav-menu display-flex justify-center">
                     <ul class="nav-list display-flex flex-no-wrap justify-center">
-                        <li><a class="display-block" href="./">Home</a></li>
+                        <li><a class="display-block" href="/">Home</a></li>
                         <li class="dropdown relative">
                             <a class="sub-list-trigger display-flex align-center space-between" href="">
                                 Categorias
