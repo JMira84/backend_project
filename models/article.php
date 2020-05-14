@@ -40,6 +40,22 @@ class Article extends Base {
         return array($articles, $paginations);
     }
 
+    public function getSingleArticle($id) {
+        $query = $this->db->prepare('
+            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.profile_img, c.category_name
+            FROM articles a
+            INNER JOIN users u USING(user_id)
+            INNER JOIN categories c USING(category_id)
+            WHERE a.article_id = ?
+        ');
+
+        $query->execute([ $id ]);
+
+        $article = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $article;
+    }
+
     public function getLatestArticles() {
         $query = $this->db->prepare('
             SELECT a.article_id, a.title, a.created_at, a.article_img, c.category_name
