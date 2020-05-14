@@ -20,8 +20,9 @@ class Article extends Base {
 
     public function getLatestArticles() {
         $query = $this->db->prepare('
-            SELECT article_id, title, created_at, article_img
-            FROM article
+            SELECT a.article_id, a.title, a.created_at, a.article_img, c.category_name
+            FROM articles a
+            INNER JOIN categories c USING(category_id)
             ORDER BY created_at DESC
             LIMIT 3
         ');

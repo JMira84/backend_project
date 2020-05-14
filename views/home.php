@@ -11,23 +11,23 @@
 
         <div class="carousel relative">
 <?php
-    foreach($articles as $article) {
+    foreach($latestArticles as $latestArticle) {
         echo '
             <div class="slides carousel-content fade flex-column justify-center align-center relative">
                 <div class="carousel-img">
-                    <img src="assets/images/'. $article["article_img"] .'" alt="">
+                    <img src="assets/images/'. $latestArticle["article_img"] .'" alt="">
                 </div>
                 <div class="carousel-elements absolute display-flex flex-column align-center">
                     <div class="carousel-category">
-                        <a class="carousel-cat-link relative" href="">' . $article["category_name"] . '</a>
+                        <a class="carousel-cat-link relative" href="">' . $latestArticle["category_name"] . '</a>
                     </div>
                     <div class="carousel-text">
                         <h2>
-                            <a href="' . HOME_PATH . 'article/' . $article["article_id"] . '">' . $article["title"] . '</a>
+                            <a href="' . HOME_PATH . 'article/' . $latestArticle["article_id"] . '">' . $latestArticle["title"] . '</a>
                         </h2>
                     </div>
                     <div class="carousel-link">
-                        <a href="' . HOME_PATH . 'article/' . $article["article_id"] . '">Ler mais</a>
+                        <a href="' . HOME_PATH . 'article/' . $latestArticle["article_id"] . '">Ler mais</a>
                     </div>
                 </div><!--end carousel-elements-->
             </div><!--end carousel-content-->
