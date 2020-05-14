@@ -38,14 +38,14 @@
                             <section class="author-container">
                                 <div class="author-box display-flex flex-column align-center">
                                     <div class="author-photo">
-                                        <img src="../assets/images/<?php echo $article["profile_img"]?>" alt="">
+                                        <img src="../assets/images/<?php echo $article["profile_img"];?>" alt="">
                                     </div>
                                     <div class="author-description">
                                         <h3 class="author-title">
-                                            <a href=""><?php echo $article["username"]?></a>
+                                            <a href=""><?php echo $article["username"];?></a>
                                         </h3>
                                         <div class="author-bio">
-                                            <p>Integer leo turpis, dignissim eget massa nec, consectetur placerat felis. Praesent maximus cursus purus ut pretium. Praesent vel massa libero. Aenean fermentum sodales. Proin ultrices interdum varius.</p>
+                                            <p><?php echo $article["about"];?></p>
                                         </div>
                                     </div><!--end author-description-->
                                 </div><!--end author-box-->
