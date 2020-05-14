@@ -2,6 +2,7 @@
 require("models/article.php");
 
 $articleModel = new Article();
+$latestArticles = $articleModel->getLatestArticles();
 
 if(empty($url_parts[2])) {
     header("HTTP/1.1 400 Bad Request");
