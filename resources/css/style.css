@@ -879,7 +879,17 @@ time,
 
 .single-article { margin-bottom: 70px; }
 
+.single-article figure,
+.single-article figure img { width: 100%; }
+
 .single-article figure { margin-bottom: 24px; }
+
+.single-article figure img {
+    height: 600px;
+    object-fit: cover;
+}
+
+.article-content { margin: 40px 0; }
 
 blockquote {
     position: relative;
@@ -1198,7 +1208,7 @@ input[name="search"] {
 	border-bottom: 1px solid #e5e5e5
 }
 
-.latest-articles:last-child { border: none; }
+/* .latest-articles:last-child { border: none; } */
 
 .latest-articles-info { 
     -webkit-box-flex: 1; 
