@@ -1,4 +1,9 @@
 <?php
+require("models/category.php");
+
+$categoryModel = new Category();
+$categories = $categoryModel->getList();
+
 require("models/article.php");
 
 $articleModel = new Article();
