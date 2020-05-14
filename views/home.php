@@ -106,7 +106,7 @@
         if($paginations > 3) {
             echo '
                             <li>
-                                <a class="pages display-flex justify-center align-center" href="' . HOME_PATH . 'page/' . $i . '">
+                                <a class="pages display-flex justify-center align-center" href="' . HOME_PATH . 'page/' . $paginations . '">
                                     <i class="las la-angle-double-right"></i>
                                 </a>
                             </li>
