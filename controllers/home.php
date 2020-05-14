@@ -7,7 +7,7 @@ $categories = $categoryModel->getList();
 require("models/article.php");
 
 $articleModel = new Article();
-list($articles, $paginations) = $articleModel->getList();
+$articles = $articleModel->getList();
 $latestArticles = $articleModel->getLatestArticles();
 
 require("models/user.php");

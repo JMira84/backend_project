@@ -16,7 +16,12 @@ if($url_parts[2] === "category") {
     
     if(is_numeric($url_parts[3])) {
         $articles = $articleModel->getByCategory($url_parts[3]);
-    }    
+    }
+
+    if(empty($articles)) {
+        header("HTTP/1.1 404 Not Found");
+        die("Categoria inexistente");
+    }
 }
 
 $latestArticles = $articleModel->getLatestArticles();

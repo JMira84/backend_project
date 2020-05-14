@@ -3,16 +3,6 @@ require_once("base.php");
 
 class Article extends Base {
     public function getList() {
-        $per_page = 4;
-
-        if(isset($_GET["page"])) {
-            $page = $_GET["page"];
-        } else {
-            $page = 1;
-        }
-
-        $page_1 = ($page * $per_page) - $per_page;
-
         $query = $this->db->prepare('
             SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.profile_img, c.category_name,
             c.category_id
@@ -20,25 +10,13 @@ class Article extends Base {
             INNER JOIN users u USING(user_id)
             INNER JOIN categories c USING(category_id)
             ORDER BY created_at DESC
-            LIMIT ' . $page_1 . ', ' . $per_page . '
         ');
 
         $query->execute();
 
         $articles = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        $query = $this->db->prepare('
-            SELECT *
-            FROM articles
-        ');
-
-        $query->execute();
-
-        $count = $query->rowCount();
-
-        $paginations = ceil($count / $per_page);
-
-        return array($articles, $paginations);
+        return $articles;
     }
 
     public function getSingleArticle($id) {
