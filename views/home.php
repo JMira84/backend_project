@@ -92,7 +92,7 @@
         for($i = 1; $i <= $paginations; $i++) {
             echo '
                             <li>
-                                <a class="pages display-flex justify-center align-center" href="' . HOME_PATH . '?page=' . $i . '">' . $i . '</a>
+                                <a class="pages display-flex justify-center align-center" href="' . HOME_PATH . 'page/' . $i . '">' . $i . '</a>
                             </li>
             ';
         }
@@ -106,7 +106,7 @@
         if($paginations > 3) {
             echo '
                             <li>
-                                <a class="pages display-flex justify-center align-center" href="' . HOME_PATH . '?page=' . $i . '">
+                                <a class="pages display-flex justify-center align-center" href="' . HOME_PATH . 'page/' . $i . '">
                                     <i class="las la-angle-double-right"></i>
                                 </a>
                             </li>
