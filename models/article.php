@@ -17,4 +17,19 @@ class Article extends Base {
 
         return $articles;
     }
+
+    public function getLatestArticles() {
+        $query = $this->db->prepare('
+            SELECT article_id, title, created_at, article_img
+            FROM article
+            ORDER BY created_at DESC
+            LIMIT 3
+        ');
+
+        $query->execute();
+
+        $latestArticles = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $latestArticles;
+    }
 }
