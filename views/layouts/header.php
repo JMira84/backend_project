@@ -36,7 +36,33 @@
                 </div>
                 <!--end navbar-->
                 <div class="login-container">
-                    <a class="action-button header-login-button" href="">Login</a>
+<?php
+    if(!isset($_SESSION["user_id"])) {
+?>
+                    <a class="action-button header-login-button" href="<?=HOME_PATH?>access/login">Login</a>
+<?php
+    } else {
+?>
+                <div class="logged-user-info relative">
+                    <div class="sub-list-trigger display-flex align-center space-around">
+                        <img class="sub-list-trigger" src="assets/images/<?=$user["profile_img"];?>" alt="">
+                        <span class="sub-list-trigger"><?=$user["username"]?></span>
+                    </div>
+                    <ul class="logged-list sub-list absolute">
+                        <li><a class="display-block" href="<?=HOME_PATH?>access/edit_profile">Editar Perfil</a></li>
+<?php
+        if(!empty($_SESSION["is_admin"])) {
+?>
+                        <li><a class="display-block" href="<?=HOME_PATH?>admin">Administração</a></li>
+<?php
+        }
+?>
+                        <li><a class="display-block" href="<?=HOME_PATH?>access/logout">Logout</a></li>
+                    </ul>
+                </div>
+<?php
+    }
+?>
                 </div>
             </nav>
         </div>
