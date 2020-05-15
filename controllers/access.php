@@ -23,6 +23,7 @@ if($url_parts[2] === "register") {
         }
     }
 
+    $_SESSION["csrf_token"] = sha1(mt_rand(10000, 99999) + mt_rand(10000, 99999));
     require("views/register.php");
 } else if($url_parts[2] === "login") {
     if(isset($_POST["send"])) {
@@ -36,6 +37,7 @@ if($url_parts[2] === "register") {
         $message = "Dados Incorrectos";
     }
 
+    $_SESSION["csrf_token"] = sha1(mt_rand(10000, 99999) + mt_rand(10000, 99999));
     require("views/login.php");
 } else if($url_parts[2] === "logout") {
     session_destroy();

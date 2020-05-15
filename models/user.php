@@ -31,51 +31,38 @@ class User extends Base {
     }
     
     public function register($data) {
-        foreach ($data as $key => $value) {
-            $data[$key] = strip_tags(trim($value));
-        }
-        
-        if(isset($data["send"]) && $_SESSION["csrf_token"] === $data["csrf_token"]) {
+        $data = $this->sanitizer($data);
 
-            // $data = $this->sanitizer($data);
-            
-            if(
-                !empty($data["username"]) &&
-                mb_strlen($data["username"]) > 2 ||
-                mb_strlen($data["username"]) <= 120 &&
-                !empty($data["password"]) &&
-                mb_strlen($data["password"]) > 6 ||
-                mb_strlen($data["password"]) <= 1000 &&
-                $data["password"] === $data["rep_password"] &&
-                filter_var($data["email"], FILTER_VALIDATE_EMAIL)
-            ) {
-                $query = $this->db->prepare("
-                    INSERT INTO users
-                    (username, email, password)
-                    VALUES(?, ?, ?)
-                ");
-    
-                $query->execute([
-                    $data["username"],
-                    $data["email"],
-                    password_hash($data["password"], PASSWORD_DEFAULT)
-                ]);
-    
-                return true;
-            }
-    
-            return false;
+        if(
+            !empty($data["username"]) &&
+            mb_strlen($data["username"]) > 2 ||
+            mb_strlen($data["username"]) <= 120 &&
+            !empty($data["password"]) &&
+            mb_strlen($data["password"]) > 6 ||
+            mb_strlen($data["password"]) <= 1000 &&
+            $data["password"] === $data["rep_password"] &&
+            filter_var($data["email"], FILTER_VALIDATE_EMAIL)
+        ) {
+            $query = $this->db->prepare("
+                INSERT INTO users
+                (username, email, password)
+                VALUES(?, ?, ?)
+            ");
+
+            $query->execute([
+                $data["username"],
+                $data["email"],
+                password_hash($data["password"], PASSWORD_DEFAULT)
+            ]);
+
+            return true;
         }
 
-        $_SESSION["csrf_token"] = sha1(mt_rand(10000, 99999) + mt_rand(10000, 99999));
+        return false;
     }
 
     public function login($data) {
-        foreach ($data as $key => $value) {
-            $data[$key] = strip_tags(trim($value));
-        }
-
-        // $data = $this->sanitizer($data);
+        $data = $this->sanitizer($data);
 
         if(
             !empty($data["email"]) &&
