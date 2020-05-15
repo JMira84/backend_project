@@ -10,5 +10,6 @@ class Base {
         foreach($input as $key => $value) {
             $input[$key] = strip_tags(trim($value));
         }
+        return $input;
     }
 }
