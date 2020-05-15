@@ -14,7 +14,7 @@
                 <div class="form-flex-container display-flex flex-column justify-center align-center">
                     <div class="form-container">
                         <h2 class="form-heading">Criar Conta</h2>
-                        <form method="POST" action="register.html">
+                        <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>">
                             <div class="field-container display-flex flex-column">
                                 <label for="username">Username</label>
                                 <input id="username" type="text" name="username" minlength="2" maxlength="120" autofocus required autocomplete="off">

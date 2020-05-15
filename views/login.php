@@ -14,7 +14,7 @@
                 <div class="form-flex-container display-flex flex-column justify-center align-center">
                     <div class="form-container">
                         <h2 class="form-heading">Login</h2>
-                        <form method="POST" action="login.html">
+                        <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>">
                             <div class="field-container display-flex flex-column">
                                 <label for="email">Email</label>
                                 <input id="email" type="email" name="email" maxlength="252" autofocus required autocomplete="off">
@@ -29,7 +29,7 @@
                         </form>
                     </div><!--end form-container-->
                     <div class="register-info-container">
-                        <p class="register-info">Ainda não tem conta? Registe-se <a class="register-link" href="register.html">aqui</a>.</p>
+                        <p class="register-info">Ainda não tem conta? Registe-se <a class="register-link" href="<?=HOME_PATH?>access/register">aqui</a>.</p>
                     </div>
                 </div>
             </main>
