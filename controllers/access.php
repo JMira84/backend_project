@@ -37,4 +37,7 @@ if($url_parts[2] === "register") {
     }
 
     require("views/login.php");
+} else if($url_parts[2] === "logout") {
+    session_destroy();
+    header("Location: ../");
 }
