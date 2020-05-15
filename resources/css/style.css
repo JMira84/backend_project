@@ -454,6 +454,9 @@ aside h2::after,
     width: 30px;
     height: 30px;
     border-radius: 30px;
+    background-image: url("/assets/images/generic_profile_img.png");
+    background-position: center;
+    background-size: contain;
     object-fit: cover;
 }
 
@@ -891,6 +894,12 @@ time,
 
 .article-content { margin: 40px 0; }
 
+.article-content img { 
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
 blockquote {
     position: relative;
     margin: 15px;
@@ -1046,6 +1055,8 @@ blockquote::after { content: ""; }
     padding-left: 10px; 
     color: inherit; 
 }
+
+.admin-menu-flex-container form { width: 100%; }
 
 .delete { padding-bottom: 10px; }
 
