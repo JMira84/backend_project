@@ -26,7 +26,7 @@
                                             <div class="display-flex align-center">
                                                 <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
-                                                    <a href="create.html">Criar Artigo</a>
+                                                    <a href="<?=HOME_PATH?>admin/create_article">Criar Artigo</a>
                                                 </h4>
                                             </div>
                                         </li>
@@ -34,7 +34,7 @@
                                             <div class="display-flex align-center">
                                                 <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
-                                                    <a href="edit_article.html">Editar Artigo</a>
+                                                    <a href="<?=HOME_PATH?>admin/edit_article">Editar Artigo</a>
                                                 </h4>
                                             </div>
                                         </li>
@@ -42,7 +42,7 @@
                                             <div class="display-flex align-center">
                                                 <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
-                                                    <a href="delete_article.html">Eliminar Artigo</a>
+                                                    <a href="<?=HOME_PATH?>admin/delete_article">Eliminar Artigo</a>
                                                 </h4>
                                             </div>
                                         </li>
@@ -58,7 +58,7 @@
                                             <div class="display-flex align-center">
                                                 <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
-                                                    <a href="add_admin.html">Adicionar Administrador</a>
+                                                    <a href="<?=HOME_PATH?>admin/add_admin">Adicionar Administrador</a>
                                                 </h4>
                                             </div>
                                         </li>
@@ -66,7 +66,7 @@
                                             <div class="display-flex align-center">
                                                 <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
-                                                    <a href="">Eliminar Utilizador</a>
+                                                    <a href="<?=HOME_PATH?>admin/delete_user">Eliminar Utilizador</a>
                                                 </h4>
                                             </div>
                                         </li>
