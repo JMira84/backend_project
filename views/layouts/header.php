@@ -45,17 +45,7 @@
 ?>
                 <div class="logged-user-info relative">
                     <div class="sub-list-trigger display-flex align-center space-around">
-<?php
-        if(!isset($_SESSION["profile_img"])) {
-?>
-                        <img class="sub-list-trigger" src="/assets/images/generic_profile_img.png" alt="">
-<?php
-        } else {
-?>
                         <img class="sub-list-trigger" src="uploads/users/<?=$user["profile_img"];?>" alt="">
-<?php
-        }
-?>
                         <span class="sub-list-trigger"><?=$user["username"]?></span>
                     </div>
                     <ul class="logged-list sub-list absolute">
