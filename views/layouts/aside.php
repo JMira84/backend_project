@@ -4,9 +4,15 @@
             <h2>Sobre mim</h2>
             <div class="about-me-img">
 <?php
-    echo '
-                <img src="/assets/images/' . $mainAdmin["profile_img"] . '" alt="">
-    ';
+    if(!isset($mainAdmin["profile_img"])) {
+?>
+                <img class="sub-list-trigger" src="/assets/images/generic_profile_img.png" alt="">
+<?php
+    } else {
+?>
+                <img src="/uploads/users/<?=$mainAdmin["profile_img"]?>" alt="">
+<?php
+    }
 ?>
             </div>
             <div class="about-text">
@@ -41,7 +47,7 @@
                         <time datetime="' . date("Y-m-d H:i:s", strtotime($latestArticle["created_at"])) . '">' . strftime("%e %B %Y", strtotime($latestArticle["created_at"])) . '</time>
                     </div>
                     <div class="latest-articles-img">
-                        <img src="/assets/images/' . $latestArticle["article_img"] . '" alt="">
+                        <img src="/uploads/articles/' . $latestArticle["article_img"] . '" alt="">
                     </div>
                 </div>
                 <!--end latest-articles-->
