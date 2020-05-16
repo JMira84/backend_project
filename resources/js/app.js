@@ -155,7 +155,7 @@ for(let i = 0; i < subMenuTrigger.length; i++) {
 tinymce.init({
     selector: '#content',
     plugins: 'link casechange linkchecker autolink lists checklist image media mediaembed pageembed link permanentpen powerpaste table advtable tinymcespellchecker',
-    toolbar: 'image casechange checklist formatpainter pageembed link permanentpen table',
+    toolbar: 'image casechange numlist bullist formatpainter pageembed link permanentpen table',
     toolbar_mode: 'floating',
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
