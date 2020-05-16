@@ -91,4 +91,24 @@ class User extends Base {
             return false;
         }
     }
+
+    public function update($data) {
+        $file_name = $this->uploadImage();
+            
+        $query = $this->db->prepare("
+            UPDATE users
+            SET 
+                profile_img = ?, 
+                about = ?, 
+                username = ?
+            WHERE user_id = ?
+        ");
+
+        $query->execute([
+            $file_name,
+            $data["about"],
+            $data["username"],
+            $_SESSION["user_id"]
+        ]);
+    }
 }

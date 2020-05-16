@@ -70,49 +70,26 @@ class Article extends Base {
     }
 
     public function create($data) {
-        $accepts = [
-            "png" => "image/png",
-            "jpeg" => "image/jpeg",
-            "jpg" => "image/jpeg"
-        ];
+        if(!empty($data["title"]) && !empty($data["content"])) {
+            $file_name = $this->uploadImage();
 
-        if(isset($data["send"]) && isset($_FILES["article_img"])) {
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $detected_type = finfo_file($finfo, $_FILES["article_img"]["tmp_name"]);
+            $query = $this->db->prepare("
+                INSERT INTO articles
+                (title, article_img, content, user_id, category_id)
+                VALUES(?, ?, ?, ?, ?)
+            ");
 
-            if(
-                $_FILES["article_img"]["error"] === 0 &&
-                in_array($detected_type, $accepts) &&
-                $_FILES["article_img"]["size"] > 0 &&
-                $_FILES["article_img"]["size"] < 20000000
-            ) {
+            $query->execute([
+                $data["title"],
+                $file_name,
+                $data["content"],
+                $_SESSION["user_id"],
+                $data["category_id"]
+            ]);
 
-                $file_name = date('YmdHis') . "_" . mt_rand(100000, 999999) . "." . array_search($detected_type, $accepts);
-                move_uploaded_file($_FILES["article_img"]["tmp_name"], "uploads/articles/" . $file_name);
+            $article_id = $this->db->lastInsertId();
 
-            } else {
-                die("O upload falhou");
-            }
-
-            if(!empty($data["title"]) && !empty($data["content"])) {
-                $query = $this->db->prepare("
-                    INSERT INTO articles
-                    (title, article_img, content, user_id, category_id)
-                    VALUES(?, ?, ?, ?, ?)
-                ");
-
-                $query->execute([
-                    $data["title"],
-                    $file_name,
-                    $data["content"],
-                    $_SESSION["user_id"],
-                    $data["category_id"]
-                ]);
-
-                $article_id = $this->db->lastInsertId();
-
-                return $article_id;
-            }
+            return $article_id;
         }
     }
 }
