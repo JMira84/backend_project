@@ -23,16 +23,21 @@
                                     </div>
                                     <ul class="sub-menu">
                                         <li>
-                                            <form method="POST" action="profile.html" enctype="multipart/form-data">
+                                            <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>" enctype="multipart/form-data">
                                                 <div class="field-container display-flex flex-column">
                                                     <label for="profile_img">Imagem de Perfil</label>
-                                                    <input id="profile_img" type="file" name="profile_img" required accept=".png, .jpeg, .jpg">
+                                                    <input id="profile_img" type="file" name="profile_img" accept=".png, .jpeg, .jpg">
                                                 </div>
-                                                <!--SÓ PARA ADMINS-->
+<?php
+    if(isset($_SESSION["is_admin"])) {
+?>
                                                 <div class="field-container display-flex flex-column">
-                                                    <label for="description">Sobre Ti</label>
-                                                    <textarea id="description" name="description" maxlength="65535" cols="58" rows="6" autocomplete="off"></textarea>
+                                                    <label for="about">Sobre Ti</label>
+                                                    <textarea id="about" name="about" maxlength="65535" cols="58" rows="6" autocomplete="off"></textarea>
                                                 </div>
+<?php
+    }
+?>
                                                 <div class="field-container display-flex flex-column">
                                                     <label for="username">Alterar Username</label>
                                                     <input id="username" type="text" name="username" minlength="2" maxlength="120" autofocus autocomplete="off">
