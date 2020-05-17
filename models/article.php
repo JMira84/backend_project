@@ -92,4 +92,42 @@ class Article extends Base {
             return $article_id;
         }
     }
+
+    public function update($data) {
+        $file_name = $this->uploadImage();
+
+        $query = $this->db->prepare("
+            UPDATE articles
+            SET 
+                category_id = ?,
+                title = ?, 
+                article_img = ?, 
+                content = ?
+            WHERE article_id = ?
+        ");
+
+        $query->execute([
+            $data["category_id"],
+            $data["title"],
+            $file_name,
+            $data["content"],
+            $data["article_id"]
+        ]);
+
+        $article_id = $this->db->lastInsertId();
+
+        return $article_id;
+    }
+
+    public function delete($data) {
+        $query = $this->db->prepare("
+            DELETE
+            FROM articles
+            WHERE article_id = ?
+        ");
+
+        $query->execute([
+            $data["article_id"]
+        ]);
+    }
 }
