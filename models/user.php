@@ -151,4 +151,17 @@ class User extends Base {
             $data["user_id"]
         ]);
     }
+
+    public function delete($data)
+    {
+        $query = $this->db->prepare("
+            DELETE
+            FROM users
+            WHERE user_id = ?
+        ");
+
+        $query->execute([
+            $data["user_id"]
+        ]);
+    }
 }
