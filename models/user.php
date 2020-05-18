@@ -124,4 +124,17 @@ class User extends Base {
             $_SESSION["user_id"]
         ]);
     }
+
+    public function addAdmin($data) {
+        $query = $this->db->prepare("
+            UPDATE users
+            SET is_admin = ?
+            WHERE user_id = ?
+        ");
+
+        $query->execute([
+            $data["is_admin"],
+            $data["user_id"]
+        ]);
+    }
 }
