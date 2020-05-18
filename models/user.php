@@ -2,6 +2,19 @@
 require_once("base.php");
 
 class User extends Base {
+    public function getList() {
+        $query = $this->db->prepare("
+            SELECT user_id, username, email, password, profile_img, about, is_admin, created_at
+            FROM users
+        ");
+        
+        $query->execute();
+
+        $users = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $users;
+    }
+
     public function getMainAdmin() {
         $query = $this->db->prepare("
             SELECT profile_img, about
