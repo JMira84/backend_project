@@ -15,18 +15,18 @@
                     <div class="admin-container">
                         <h2 class="admin-heading">Eliminar Artigo</h2>
                         <div class="admin-menu-flex-container display-flex align-center">
-                            <ul class="delete-list">
+                            <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>" enctype="multipart/form-data">
 <?php
     foreach($articles as $article) {
         echo '
-                                <li class="display-flex align-center space-between">
-                                    ' . $article["title"] . '
-                                    <i class="delete-icon las la-trash-alt"></i>
-                                </li>
+                                <div class="field-container delete-field display-flex flex-row space-between" data-article_id="' . $article["article_id"] . '">
+                                    <label for="article' . $article["article_id"] . '">' . $article["title"] . '</label>
+                                    <button class="delete-button las la-trash" id="article' . $article["article_id"] . '" type="submit" name="article_id" value="' . $article["article_id"] . '"></button>
+                                </div>
         ';
     }
 ?>
-                            </ul>
+                            </form>
                         </div><!--admin-menu-flex-container-->
                     </div><!--end admin-container-->
                 </div><!--end admin-flex-container-->
