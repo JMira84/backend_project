@@ -105,7 +105,9 @@ class User extends Base {
         }
     }
 
-    public function update($data) {
+    public function updateInfo($data) {
+        $data = $this->sanitizer($data);
+
         $file_name = $this->uploadImage();
             
         $query = $this->db->prepare("
@@ -123,6 +125,29 @@ class User extends Base {
             $data["username"],
             $_SESSION["user_id"]
         ]);
+    }
+
+    public function updatePassword($data) {
+        $data = $this->sanitizer($data);
+
+        if (
+            !empty($data["password"]) &&
+            mb_strlen($data["password"]) > 6 ||
+            mb_strlen($data["password"]) <= 1000 &&
+            $data["password"] === $data["rep_password"]
+        ) {
+            $query = $this->db->prepare("
+                UPDATE users
+                SET
+                    password = ?
+                WHERE user_id = ?
+            ");
+
+            $query->execute([
+                password_hash($data["password"], PASSWORD_DEFAULT),
+                $_SESSION["user_id"]
+            ]);
+        }
     }
 
     public function addAdmin($data) {
