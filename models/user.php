@@ -137,4 +137,18 @@ class User extends Base {
             $data["user_id"]
         ]);
     }
+
+    public function removeAdmin($data)
+    {
+        $query = $this->db->prepare("
+            UPDATE users
+            SET is_admin = ?
+            WHERE user_id = ?
+        ");
+
+        $query->execute([
+            $data["is_admin"],
+            $data["user_id"]
+        ]);
+    }
 }
