@@ -4,7 +4,7 @@
             <h2>Sobre mim</h2>
             <div class="about-me-img">
 <?php
-    if(!isset($mainAdmin["profile_img"])) {
+    if(empty($mainAdmin["profile_img"])) {
 ?>
                 <img class="sub-list-trigger" src="/assets/images/generic_profile_img.png" alt="">
 <?php
