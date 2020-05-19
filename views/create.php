@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="field-container display-flex flex-column">
                                     <label for="content">Conteúdo</label>
-                                    <textarea id="content" name="content" maxlength="65535" required></textarea>
+                                    <textarea id="content" name="content" maxlength="65535"></textarea>
                                 </div>
                                 <div class="field-container submit-container">
                                     <button class="create-btn" type="submit" name="send">Criar Artigo</button>
