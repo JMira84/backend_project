@@ -31,8 +31,19 @@
                             </div>
                             <div class="field-container display-flex flex-column">
                                 <label for="message">Mensagem</label>
-                                <textarea id="message" name="content" maxlength="65535" cols="58" rows="6" required></textarea>
+                                <textarea id="message" name="message" maxlength="65535" cols="58" rows="6" required></textarea>
                             </div>
+<?php
+    if(isset($email_message)) {
+        echo '
+                            <div class="success-message-container display-flex justify-center" role="alert">
+                                <div class="success-message display-flex align-center">
+                                    <span>' . $email_message . '</span>
+                                </div>
+                            </div>
+        ';
+    }
+?>
                             <div class="inline-block">
                                 <button class="action-button" type="submit" name="send">Enviar</button>
                             </div>
