@@ -19,7 +19,7 @@
                         <li class="dropdown relative">
                             <a class="sub-list-trigger display-flex align-center space-between" href="">
                                 Categorias
-                                <i class="sub-menu-arrow header-arrow las la-angle-right"></i>
+                                <i class="header-arrow las la-angle-right"></i>
                             </a>
                             <ul class="sub-list absolute">
 <?php
@@ -31,7 +31,7 @@
 ?>
                             </ul>
                         </li>
-                        <li><a class="display-block" href="">Contacto</a></li>
+                        <li><a class="display-block" href="<?=HOME_PATH?>contact">Contacto</a></li>
                     </ul>
                 </div>
                 <!--end navbar-->
@@ -45,7 +45,17 @@
 ?>
                 <div class="logged-user-info relative">
                     <div class="sub-list-trigger display-flex align-center space-around">
-                        <img class="sub-list-trigger" src="uploads/users/<?=$user["profile_img"];?>" alt="">
+<?php
+        if(empty($user["profile_img"])) {
+?>
+                        <img class="sub-list-trigger" src="/assets/images/generic_profile_img.png" alt="">
+<?php
+        } else {
+?>
+                        <img class="sub-list-trigger" src="/uploads/users/<?=$user["profile_img"];?>" alt="">
+<?php
+        }
+?>
                         <span class="sub-list-trigger"><?=$user["username"]?></span>
                     </div>
                     <ul class="logged-list sub-list absolute">
