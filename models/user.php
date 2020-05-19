@@ -30,17 +30,19 @@ class User extends Base {
     }
 
     public function getLoggedUser() {
-        $query = $this->db->prepare("
-            SELECT username, profile_img, about
-            FROM users
-            WHERE user_id = ?
-        ");
-
-        $query->execute([ $_SESSION["user_id"] ]);
-
-        $user = $query->fetch(PDO::FETCH_ASSOC);
-
-        return $user;
+        if(isset($_SESSION["user_id"])) {
+            $query = $this->db->prepare("
+                SELECT username, profile_img, about
+                FROM users
+                WHERE user_id = ?
+            ");
+    
+            $query->execute([ $_SESSION["user_id"] ]);
+    
+            $user = $query->fetch(PDO::FETCH_ASSOC);
+    
+            return $user;
+        }
     }
     
     public function register($data) {
