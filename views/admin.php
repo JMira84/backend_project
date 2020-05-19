@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pé de Cereja</title>
+        <title>Área de Administração</title>
         <?php require("layouts/head.php")?>
     </head>
     <body>
@@ -24,7 +24,6 @@
                                     <ul class="sub-menu">
                                         <li>
                                             <div class="display-flex align-center">
-                                                <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
                                                     <a href="<?=HOME_PATH?>admin/create_article">Criar Artigo</a>
                                                 </h4>
@@ -32,7 +31,6 @@
                                         </li>
                                         <li>
                                             <div class="display-flex align-center">
-                                                <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
                                                     <a href="<?=HOME_PATH?>admin/edit_article">Editar Artigo</a>
                                                 </h4>
@@ -40,7 +38,6 @@
                                         </li>
                                         <li>
                                             <div class="display-flex align-center">
-                                                <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
                                                     <a href="<?=HOME_PATH?>admin/delete_article">Eliminar Artigo</a>
                                                 </h4>
@@ -56,7 +53,6 @@
                                     <ul class="sub-menu">
                                         <li>
                                             <div class="display-flex align-center">
-                                                <i class="sub-menu-arrow las la-angle-right"></i>
                                                 <h4>
                                                     <a href="<?=HOME_PATH?>admin/add_admin">Adicionar Administrador</a>
                                                 </h4>
@@ -64,7 +60,13 @@
                                         </li>
                                         <li>
                                             <div class="display-flex align-center">
-                                                <i class="sub-menu-arrow las la-angle-right"></i>
+                                                <h4>
+                                                    <a href="<?=HOME_PATH?>admin/remove_admin">Remover Administrador</a>
+                                                </h4>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="display-flex align-center">
                                                 <h4>
                                                     <a href="<?=HOME_PATH?>admin/delete_user">Eliminar Utilizador</a>
                                                 </h4>
