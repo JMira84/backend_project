@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Eliminar Artigo</title>
+        <title>Editar Artigo</title>
         <?php require("layouts/head.php")?>
     </head>
     <body>
@@ -13,7 +13,11 @@
             <main>
                 <div class="admin-flex-container display-flex flex-column justify-center align-center">
                     <div class="admin-container">
-                        <h2 class="admin-heading">Eliminar Artigo</h2>
+                        <div class="return-link-container">
+                            <span>&larr;</span>
+                            <a href="<?=HOME_PATH?>admin">Regressar</a>
+                        </div>
+                        <h2 class="admin-heading">Editar Artigo</h2>
                         <div class="admin-menu-flex-container display-flex flex-column align-center">
 <?php
     foreach($articles as $article) {

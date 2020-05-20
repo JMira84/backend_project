@@ -33,14 +33,14 @@
 ?>
                                                 <div class="field-container display-flex flex-column">
                                                     <label for="about">Sobre Ti</label>
-                                                    <textarea id="about" name="about" maxlength="65535" cols="58" rows="6" autocomplete="off"></textarea>
+                                                    <textarea id="about" name="about" maxlength="65535" cols="58" rows="6" autocomplete="off"><?=$user["about"]?></textarea>
                                                 </div>
 <?php
     }
 ?>
                                                 <div class="field-container display-flex flex-column">
                                                     <label for="username">Alterar Username</label>
-                                                    <input id="username" type="text" name="username" minlength="2" maxlength="120" autofocus autocomplete="off">
+                                                    <input id="username" type="text" name="username" value="<?=$user["username"]?>" minlength="2" maxlength="120" autofocus autocomplete="off">
                                                 </div>
                                                 <div class="inline-block">
                                                     <button class="action-button" type="submit" name="send_new_info">Alterar</button>
@@ -56,7 +56,7 @@
                                     </div>
                                     <ul class="sub-menu">
                                         <li>
-                                            <form method="POST" action="profile.html">
+                                            <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>">
                                                 <div class="field-container display-flex flex-column">
                                                     <label for="password">Nova Password</label>
                                                     <input id="password" type="password" name="password" maxlength="255" required autocomplete="off">

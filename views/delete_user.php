@@ -13,6 +13,10 @@
             <main>
                 <div class="admin-flex-container display-flex flex-column justify-center align-center">
                     <div class="admin-container">
+                        <div class="return-link-container">
+                            <span>&larr;</span>
+                            <a href="<?=HOME_PATH?>admin">Regressar</a>
+                        </div>
                         <h2 class="admin-heading">Eliminar Utilizador</h2>
                         <div class="admin-menu-flex-container display-flex align-center">
                             <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>" enctype="multipart/form-data">
