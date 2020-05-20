@@ -14,6 +14,17 @@
                 <div class="form-flex-container display-flex flex-column justify-center align-center">
                     <div class="form-container">
                         <h2 class="form-heading">Login</h2>
+<?php
+    if(isset($login_message)) {
+        echo'
+                        <div class="alert-message-container display-flex justify-center" role="alert">
+                            <div class="alert-message display-flex align-center">
+                                <span>' . $login_message . '</span>
+                            </div>
+                        </div>
+        ';
+    }
+?>
                         <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>">
                             <div class="field-container display-flex flex-column">
                                 <label for="email">Email</label>
