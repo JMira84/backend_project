@@ -17,13 +17,13 @@
             echo '
                     <li>
                         <a class="next-page inline-block" href=' . HOME_PATH . 'browse/category/' . $articles[0]['category_id'] . '/?page=' . $next . '>
-                            Próxima
+                            Seguinte
                             <span>&rarr;</span>
                         </a>
                     </li>
                 ';
         }
-    } else if ($url_parts[1] === "admin") {
+    } else if (isset($url_parts[2]) && $url_parts[2] === "delete_article") {
         if ($page >= 2) {
             echo '
                     <li>
@@ -39,7 +39,51 @@
             echo '
                 <li>
                     <a class="next-page inline-block" href=' . HOME_PATH . 'admin/delete_article/?page=' . $next . '>
-                        Próxima
+                        Seguinte
+                        <span>&rarr;</span>
+                    </a>
+                </li>
+            ';
+        }
+    } else if (isset($url_parts[2]) && $url_parts[2] === "edit_article") {
+        if ($page >= 2) {
+            echo '
+                    <li>
+                        <a class="prev-page inline-block" href=' . HOME_PATH . 'admin/edit_article/?page=' . $prev .'>
+                            <span>&larr;</span>
+                            Anterior
+                        </a>
+                    </li>
+                ';
+        }
+    
+        if($page < $count - 4) {
+            echo '
+                <li>
+                    <a class="next-page inline-block" href=' . HOME_PATH . 'admin/edit_article/?page=' . $next . '>
+                        Seguinte
+                        <span>&rarr;</span>
+                    </a>
+                </li>
+            ';
+        }
+    } else if (isset($url_parts[1]) && $url_parts[1] === "article") {
+        if ($page >= 2) {
+            echo '
+                    <li>
+                        <a class="prev-page inline-block" href=' . HOME_PATH . 'article/' . $url_parts[2] . '/comments/?page=' . $prev .'>
+                            <span>&larr;</span>
+                            Menos
+                        </a>
+                    </li>
+                ';
+        }
+    
+        if($page < $count - 5) {
+            echo '
+                <li>
+                    <a class="next-page inline-block" href=' . HOME_PATH . 'article/' . $url_parts[2] . '/comments/?page=' . $next . '>
+                        Mais
                         <span>&rarr;</span>
                     </a>
                 </li>
@@ -61,7 +105,7 @@
             echo '
                 <li>
                     <a class="next-page inline-block" href=' . HOME_PATH . '?page=' . $next . '>
-                        Próxima
+                        Seguinte
                         <span>&rarr;</span>
                     </a>
                 </li>
