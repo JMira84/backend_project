@@ -14,7 +14,7 @@ require("models/user.php");
 $userModel = new User();
 
 if($url_parts[2] === "register") {
-    if(isset($_POST["send"])) {
+    if(isset($_POST["send"]) && $_SESSION["csrf_token"] === $_POST["csrf_token"]) {
         $res = $userModel->register($_POST);
 
         if($res) {
@@ -25,6 +25,7 @@ if($url_parts[2] === "register") {
 
     $_SESSION["csrf_token"] = sha1(mt_rand(10000, 99999) + mt_rand(10000, 99999));
     require("views/register.php");
+
 } else if($url_parts[2] === "login") {
     if(isset($_POST["send"])) {
         $res = $userModel->login($_POST);
@@ -34,11 +35,12 @@ if($url_parts[2] === "register") {
             exit;
         }
 
-        $message = "Dados Incorrectos";
+        $login_message = "Dados Incorrectos";
     }
 
     $_SESSION["csrf_token"] = sha1(mt_rand(10000, 99999) + mt_rand(10000, 99999));
     require("views/login.php");
+
 } else if($url_parts[2] === "logout") {
     session_destroy();
     header("Location: ../");
