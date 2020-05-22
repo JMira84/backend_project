@@ -67,6 +67,28 @@
                 </li>
             ';
         }
+    } else if (isset($url_parts[2]) && $url_parts[2] === "delete_user") {
+        if ($page >= 2) {
+            echo '
+                    <li>
+                        <a class="prev-page inline-block" href=' . HOME_PATH . 'admin/delete_user/?page=' . $prev .'>
+                            <span>&larr;</span>
+                            Menos
+                        </a>
+                    </li>
+                ';
+        }
+    
+        if($page < $count - 5) {
+            echo '
+                <li>
+                    <a class="next-page inline-block" href=' . HOME_PATH . 'admin/delete_user/?page=' . $next . '>
+                        Mais
+                        <span>&rarr;</span>
+                    </a>
+                </li>
+            ';
+        }
     } else if (isset($url_parts[1]) && $url_parts[1] === "article") {
         if ($page >= 2) {
             echo '
