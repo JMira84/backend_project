@@ -2,17 +2,57 @@
 require_once("base.php");
 
 class User extends Base {
-    public function getList() {
+    public function getList()
+    {
         $query = $this->db->prepare("
             SELECT user_id, username, email, password, profile_img, about, is_admin, created_at
             FROM users
         ");
-        
+
         $query->execute();
 
         $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
         return $users;
+    }
+
+    public function getPaginationList() {
+        $page = 0;
+        $per_page = 4;
+        $page_counter = 1;
+        $next = $page_counter + 1;
+        $prev = $page_counter - 1;
+
+        if (isset($_GET["page"])) {
+            $page = (int) $_GET["page"] - 1;
+            $page_counter = (int) $_GET["page"];
+            $page = $page * $per_page;
+            $next = $page_counter + 1;
+            $prev = $page_counter - 1;
+        }
+
+        $query = $this->db->prepare("
+            SELECT user_id, username, email, password, profile_img, about, is_admin, created_at
+            FROM users
+            LIMIT " . $page . ", " . $per_page . "
+        ");
+        
+        $query->execute();
+
+        $usersPaginations = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $query = $this->db->prepare("
+            SELECT user_id, username, email, password, profile_img, about, is_admin, created_at
+            FROM users
+        ");
+
+        $query->execute();
+
+        $count = $query->rowCount();
+
+        $paginations = ceil($count / $per_page);
+
+        return array($page, $page_counter, $next, $prev, $usersPaginations, $count, $paginations);
     }
 
     public function getMainAdmin() {
