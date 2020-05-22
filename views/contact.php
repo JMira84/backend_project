@@ -30,8 +30,8 @@
                                 </div><!--end name-subject-email-->
                             </div>
                             <div class="field-container display-flex flex-column">
-                                <label for="message">Mensagem</label>
-                                <textarea id="message" name="message" maxlength="65535" cols="58" rows="6" required></textarea>
+                                <label for="contact-message">Mensagem</label>
+                                <textarea class="text-area" id="contact-message" name="message" maxlength="65535" cols="58" rows="6" required></textarea>
                             </div>
 <?php
     if(isset($email_message)) {
@@ -39,6 +39,14 @@
                             <div class="success-message-container display-flex justify-center" role="alert">
                                 <div class="success-message display-flex align-center">
                                     <span>' . $email_message . '</span>
+                                </div>
+                            </div>
+        ';
+    } else if(isset($email_alert_message)) {
+        echo '
+                            <div class="alert-message-container display-flex justify-center" role="alert">
+                                <div class="alert-message display-flex align-center">
+                                    <span>' . $email_alert_message . '</span>
                                 </div>
                             </div>
         ';
