@@ -28,22 +28,6 @@ class User extends Base {
 
         return $main_admin;
     }
-
-    public function getLoggedUser() {
-        if(isset($_SESSION["user_id"])) {
-            $query = $this->db->prepare("
-                SELECT username, profile_img, about
-                FROM users
-                WHERE user_id = ?
-            ");
-    
-            $query->execute([ $_SESSION["user_id"] ]);
-    
-            $user = $query->fetch(PDO::FETCH_ASSOC);
-    
-            return $user;
-        }
-    }
     
     public function register($data) {
         $data = $this->sanitizer($data);
@@ -86,7 +70,7 @@ class User extends Base {
             mb_strlen($data["password"]) <= 1000
         ) {
             $query = $this->db->prepare("
-                SELECT user_id, email, password, is_admin
+                SELECT user_id, email, password, is_admin, profile_img, username, about
                 FROM users
                 WHERE email = ?
             ");
@@ -99,6 +83,9 @@ class User extends Base {
                 $_SESSION["is_admin"] = $user["is_admin"];
                 $_SESSION["user_id"] = $user["user_id"];
                 $_SESSION["email"] = $user["email"];
+                $_SESSION["profile_img"] = $user["profile_img"];
+                $_SESSION["username"] = $user["username"];
+                $_SESSION["about"] = $user["about"];
 
                 return true;
             }
@@ -110,7 +97,7 @@ class User extends Base {
     public function updateInfo($data) {
         $data = $this->sanitizer($data);
 
-        $file_name = $this->uploadImage();
+        $image = $this->uploadImage();
             
         $query = $this->db->prepare("
             UPDATE users
@@ -121,12 +108,20 @@ class User extends Base {
             WHERE user_id = ?
         ");
 
-        $query->execute([
-            $file_name,
+        $result = $query->execute([
+            $image,
             $data["about"],
             $data["username"],
             $_SESSION["user_id"]
         ]);
+
+        if (!empty($result)) {
+            $_SESSION["username"] = $data["username"];
+            $_SESSION["about"] = $data["about"];
+            $_SESSION["profile_img"] = $image;
+        }
+
+        return $result;
     }
 
     public function updatePassword($data) {
@@ -145,10 +140,12 @@ class User extends Base {
                 WHERE user_id = ?
             ");
 
-            $query->execute([
+            $result = $query->execute([
                 password_hash($data["password"], PASSWORD_DEFAULT),
                 $_SESSION["user_id"]
             ]);
+
+            return $result;
         }
     }
 
@@ -159,10 +156,12 @@ class User extends Base {
             WHERE user_id = ?
         ");
 
-        $query->execute([
+        $result = $query->execute([
             $data["is_admin"],
             $data["user_id"]
         ]);
+
+        return $result;
     }
 
     public function removeAdmin($data)
@@ -173,10 +172,12 @@ class User extends Base {
             WHERE user_id = ?
         ");
 
-        $query->execute([
+        $result = $query->execute([
             $data["is_admin"],
             $data["user_id"]
         ]);
+        
+        return $result;
     }
 
     public function delete($data)
@@ -187,8 +188,10 @@ class User extends Base {
             WHERE user_id = ?
         ");
 
-        $query->execute([
+        $result = $query->execute([
             $data["user_id"]
         ]);
+
+        return $result;
     }
 }
