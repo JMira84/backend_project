@@ -3,20 +3,24 @@ require_once("base.php");
 
 class Comment extends Base {
     public function createComment($data) {
-        $query = $this->db->prepare("
-            INSERT INTO comments
-            (article_id, comment_content, user_id, parent_id)
-            VALUES(?, ?, ?, ?)
-        ");
+        $data = $this->sanitizer($data);
 
-        $result = $query->execute([
-            $data["article_id"],
-            $data["comment_content"],
-            $_SESSION["user_id"],
-            $data["parent_id"]
-        ]);
-
-        return $result;
+        if(!empty($data["comment_content"])) {
+            $query = $this->db->prepare("
+                INSERT INTO comments
+                (article_id, comment_content, user_id, parent_id)
+                VALUES(?, ?, ?, ?)
+            ");
+    
+            $result = $query->execute([
+                $data["article_id"],
+                $data["comment_content"],
+                $_SESSION["user_id"],
+                $data["parent_id"]
+            ]);
+    
+            return $result;
+        }
     }
 
     public function viewComments($article_id) {
