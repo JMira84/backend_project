@@ -17,15 +17,15 @@ class Article extends Base {
             $prev = $page_counter - 1;
         }
 
-        $query = $this->db->prepare('
-            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.profile_img, c.category_name,
+        $query = $this->db->prepare("
+            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.user_id, u.profile_img, c.category_name,
             c.category_id
             FROM articles a
             INNER JOIN users u USING(user_id)
             INNER JOIN categories c USING(category_id)
             ORDER BY created_at DESC
-            LIMIT ' . $page . ', ' . $per_page . '
-        ');
+            LIMIT " . $page . ", " . $per_page . "
+        ");
 
         $query->execute();
 
@@ -46,13 +46,13 @@ class Article extends Base {
     }
 
     public function getSingleArticle($id) {
-        $query = $this->db->prepare('
+        $query = $this->db->prepare("
             SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.profile_img, u.about, c.category_name, c.category_id
             FROM articles a
             INNER JOIN users u USING(user_id)
             INNER JOIN categories c USING(category_id)
             WHERE a.article_id = ?
-        ');
+        ");
 
         $query->execute([ $id ]);
 
@@ -62,13 +62,13 @@ class Article extends Base {
     }
 
     public function getLatestArticles() {
-        $query = $this->db->prepare('
+        $query = $this->db->prepare("
             SELECT a.article_id, a.title, a.created_at, a.article_img, c.category_name, c.category_id
             FROM articles a
             INNER JOIN categories c USING(category_id)
             ORDER BY created_at DESC
             LIMIT 3
-        ');
+        ");
 
         $query->execute();
 
@@ -92,16 +92,16 @@ class Article extends Base {
             $prev = $page_counter - 1;
         }
 
-        $query = $this->db->prepare('
-            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.profile_img, c.category_name,
+        $query = $this->db->prepare("
+            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.user_id, u.profile_img, c.category_name,
             c.category_id
             FROM articles a
             INNER JOIN users u USING(user_id)
             INNER JOIN categories c USING(category_id)
             WHERE a.category_id = ?
             ORDER BY created_at DESC
-            LIMIT ' . $page . ', ' . $per_page . '
-        ');
+            LIMIT " . $page . ", " . $per_page . "
+        ");
 
         $query->execute([ $category_id ]);
 
@@ -122,9 +122,121 @@ class Article extends Base {
         return array($page, $page_counter, $next, $prev, $articles, $count, $paginations);
     }
 
-    public function create($data) {
+    public function dateList() {
+        $query = $this->db->prepare("
+            SELECT created_at
+            FROM articles
+            GROUP BY MONTH(created_at)
+            LIMIT 0, 12
+        ");
+
+        $query->execute();
+
+        $dates = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $dates;
+    }
+
+    public function getByDate($month, $year) {
+        $page = 0;
+        $per_page = 4;
+        $page_counter = 1;
+        $next = $page_counter + 1;
+        $prev = $page_counter - 1;
+
+        if (isset($_GET["page"])) {
+            $page = (int) $_GET["page"] - 1;
+            $page_counter = (int) $_GET["page"];
+            $page = $page * $per_page;
+            $next = $page_counter + 1;
+            $prev = $page_counter - 1;
+        }
+
+        $query = $this->db->prepare("
+            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.user_id, u.profile_img, c.category_name,
+            c.category_id
+            FROM articles a
+            INNER JOIN users u USING(user_id)
+            INNER JOIN categories c USING(category_id)
+            WHERE MONTH(a.created_at) = ? AND YEAR(a.created_at) = ?
+            ORDER BY created_at DESC
+            LIMIT " . $page . ", " . $per_page . "
+        ");
+
+        $query->execute([ 
+            $month,
+            $year 
+        ]);
+
+        $articles = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $query = $this->db->prepare("
+            SELECT article_id, title, content, article_img, created_at
+            FROM articles
+            WHERE MONTH(created_at) = ? AND YEAR(created_at) = ?
+        ");
+
+        $query->execute([
+            $month,
+            $year
+        ]);
+
+        $count = $query->rowCount();
+
+        $paginations = ceil($count / $per_page);
+
+        return array($page, $page_counter, $next, $prev, $articles, $count, $paginations);
+    }
+
+    public function getByAuthor($user_id) {
+        $page = 0;
+        $per_page = 4;
+        $page_counter = 1;
+        $next = $page_counter + 1;
+        $prev = $page_counter - 1;
+
+        if (isset($_GET["page"])) {
+            $page = (int) $_GET["page"] - 1;
+            $page_counter = (int) $_GET["page"];
+            $page = $page * $per_page;
+            $next = $page_counter + 1;
+            $prev = $page_counter - 1;
+        }
+
+        $query = $this->db->prepare("
+            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.username, u.user_id, u.profile_img, c.category_name,
+            c.category_id
+            FROM articles a
+            INNER JOIN users u USING(user_id)
+            INNER JOIN categories c USING(category_id)
+            WHERE u.user_id = ?
+            ORDER BY created_at DESC
+            LIMIT " . $page . ", " . $per_page . "
+        ");
+
+        $query->execute([ $user_id ]);
+
+        $articles = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $query = $this->db->prepare("
+            SELECT a.article_id, a.title, a.content, a.article_img, a.created_at, u.user_id
+            FROM articles a
+            INNER JOIN users u USING(user_id)
+            WHERE u.user_id = ?
+        ");
+
+        $query->execute([ $user_id ]);
+
+        $count = $query->rowCount();
+
+        $paginations = ceil($count / $per_page);
+
+        return array($page, $page_counter, $next, $prev, $articles, $count, $paginations);
+    }
+
+    public function create($data, $article) {
         if(!empty($data["title"]) && !empty($data["content"])) {
-            $file_name = $this->uploadImage();
+            $image = $this->uploadArticleImage($article);
 
             $query = $this->db->prepare("
                 INSERT INTO articles
@@ -134,7 +246,7 @@ class Article extends Base {
 
             $query->execute([
                 $data["title"],
-                $file_name,
+                $image,
                 $data["content"],
                 $_SESSION["user_id"],
                 $data["category_id"]
@@ -146,8 +258,8 @@ class Article extends Base {
         }
     }
 
-    public function update($data) {
-        $file_name = $this->uploadImage();
+    public function update($data, $id, $article) {
+        $image = $this->uploadArticleImage($article);
 
         $query = $this->db->prepare("
             UPDATE articles
@@ -159,28 +271,26 @@ class Article extends Base {
             WHERE article_id = ?
         ");
 
-        $query->execute([
+        $result = $query->execute([
             $data["category_id"],
             $data["title"],
-            $file_name,
+            $image,
             $data["content"],
-            $data["article_id"]
+            $id
         ]);
 
-        $article_id = $this->db->lastInsertId();
-
-        return $article_id;
+        return $result;
     }
 
-    public function delete($data) {
+    public function delete($id) {
         $query = $this->db->prepare("
             DELETE
             FROM articles
             WHERE article_id = ?
         ");
 
-        $query->execute([
-            $data["article_id"]
-        ]);
+        $result = $query->execute([ $id ]);
+
+        return $result;
     }
 }
