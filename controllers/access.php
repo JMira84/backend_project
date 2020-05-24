@@ -18,7 +18,7 @@ if($url_parts[2] === "register") {
         $res = $userModel->register($_POST);
 
         if($res) {
-            header("Location: ../access/login");
+            header("Location: /access/login");
             exit;
         }
     }
@@ -31,7 +31,7 @@ if($url_parts[2] === "register") {
         $res = $userModel->login($_POST);
 
         if($res) {
-            header("Location: ../");
+            header("Location: /");
             exit;
         }
 
@@ -43,5 +43,5 @@ if($url_parts[2] === "register") {
 
 } else if($url_parts[2] === "logout") {
     session_destroy();
-    header("Location: ../");
+    header("Location: /");
 }
