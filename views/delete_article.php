@@ -19,19 +19,16 @@
                         </div>
                         <h2 class="admin-heading">Eliminar Artigo</h2>
                         <div class="admin-menu-flex-container display-flex flex-column align-center">
-                            <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>">
 <?php
-    foreach($articles as $article) {
-        echo '
-                                <div class="field-container delete-field display-flex flex-row space-between" data-article_id="' . $article["article_id"] . '">
+foreach ($articles as $article) {
+    echo '
+                                <div class="delete-article field-container delete-field display-flex flex-row space-between" data-article_id="' . $article["article_id"] . '">
                                     <span>' . $article["title"] . '</span>
-                                    <input type="hidden" name="article_id" value="' . $article["article_id"] . '"> 
-                                    <button class="delete-button las la-trash" id="article' . $article["article_id"] . '" type="submit"></button>
+                                    <button class="delete-button las la-trash" type="button" aria-label="Delete"></button>
                                 </div>
         ';
-    }
+}
 ?>
-                            </form>
                             <?php require("layouts/pagination.php")?>
                         </div><!--admin-menu-flex-container-->
                     </div><!--end admin-container-->
