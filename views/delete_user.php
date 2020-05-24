@@ -18,20 +18,20 @@
                             <a href="<?=HOME_PATH?>admin">Regressar</a>
                         </div>
                         <h2 class="admin-heading">Eliminar Utilizador</h2>
-                        <div class="admin-menu-flex-container display-flex align-center">
-                            <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>" enctype="multipart/form-data">
+                        <div class="admin-menu-flex-container display-flex flex-column align-center">
 <?php
-    foreach($users as $user) {
+    foreach($usersPaginations as $user) {
         echo '
-                                <div class="field-container delete-field display-flex flex-row space-between" data-user_id="' . $user["user_id"] . '">
-                                    <label for="user' . $user["user_id"] . '">' . $user["username"] . '</label>
-                                    <button class="delete-button las la-trash" id="user' . $user["user_id"] . '" type="submit" name="user_id" value="' . $user["user_id"] . '"></button>
-                                </div>
+                            <div class="delete-user field-container delete-field display-flex flex-row space-between" data-user_id="' . $user["user_id"] . '">
+                                <span>' . $user["username"] . '</span>
+                                <button class="delete-button las la-trash" type="button" aria-label="Delete"></button>
+                            </div>
         ';
     }
 ?>
-                            </form>
                         </div><!--admin-menu-flex-container-->
+
+                        <?php require("layouts/pagination.php")?>
                     </div><!--end admin-container-->
                 </div><!--end admin-flex-container-->
             </main>
