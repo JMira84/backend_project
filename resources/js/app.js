@@ -1,7 +1,9 @@
-import { slides, nextButton, prevButton, header, hamburger, hamburgerTop, hamburgerMiddle, hamburgerBottom, nav, toTopBtn, toTopLink, subList, menuLink, subMenus, subMenuTrigger, subMenuArrow, changeBrightness, headerArrow } from "./modules/elements.js";
-
-
 // DROPDOWN MENU
+const subList = document.querySelectorAll(".sub-list");
+const menuLink = document.querySelectorAll(".sub-list-trigger");
+
+const headerArrow = document.querySelector(".header-arrow");
+
 function closeOpenedMenus() {
     for(let i = 0; i < subList.length; i++) {
         subList[i].classList.remove("show-dropdown");
@@ -9,16 +11,22 @@ function closeOpenedMenus() {
 }
 
 for(let i = 0; i < menuLink.length; i++) {
+
     function dropdownMenu(e) {
-        const open = !subList[i].classList.contains("show-dropdown");
+        if(subList[i] != null) {
+            const open = !subList[i].classList.contains("show-dropdown");
+        
+            e.preventDefault();
 
-        e.preventDefault();
-
-        closeOpenedMenus();
-    
-        if(open) {
-            subList[i].classList.add("show-dropdown");
-            headerArrow.classList.add("rotate-arrow");
+            closeOpenedMenus();
+        
+            if(open) {
+                subList[i].classList.add("show-dropdown");
+                headerArrow.classList.add("rotate-arrow");
+            } else {
+                subList[i].classList.remove("show-dropdown");
+                headerArrow.classList.remove("rotate-arrow");
+            }
         }
     }
     
@@ -45,7 +53,13 @@ window.addEventListener("click", closeClickOutside);
 
 
 // SLIDESHOW
+const nextButton = document.querySelector(".next-arrow");
+const prevButton = document.querySelector(".prev-arrow");
+
 if(nextButton != null && prevButton != null) {
+    
+    const slides = document.querySelectorAll(".slides");
+
     let slideIndex = 1;
 
     function playSlides(n) {    
@@ -80,6 +94,8 @@ if(nextButton != null && prevButton != null) {
 
 
 // HEADER EFFECT
+const header = document.querySelector("header");
+
 function headerShadow() {
     if(document.body.scrollTop >= 67.6 || document.documentElement.scrollTop >= 67.6) {
         header.classList.add("shadow");
@@ -92,6 +108,13 @@ document.addEventListener("scroll", headerShadow);
 
 
 // HAMBURGER
+const hamburger = document.querySelector(".hamburger");
+const nav = document.querySelector(".navbar");
+const hamburgerTop = document.querySelector(".top");
+const hamburgerMiddle = document.querySelector(".middle");
+const hamburgerBottom = document.querySelector(".bottom");
+const changeBrightness = document.querySelector(".brightness-effect");
+
 function hamburgerMenu() {
     hamburgerTop.classList.add("top-transform");
     hamburgerMiddle.classList.add("middle-transform");
@@ -111,6 +134,9 @@ hamburger.addEventListener("click", hamburgerMenu);
 
 
 // BACK-TO-TOP
+const toTopBtn = document.querySelector(".back-to-top");
+const toTopLink = document.querySelector(".back-to-top a");
+
 function backToTop() {
     if(document.body.scrollTop >= 60 || document.documentElement.scrollTop >= 60) {
         return toTopBtn.classList.add("back-to-top-show");
@@ -139,6 +165,10 @@ if(toTopLink != null) {
 
 
 // ADMIN AND PROFILE AREA MENU
+const subMenuTrigger = document.querySelectorAll(".sub-menu-trigger");
+const subMenus = document.querySelectorAll(".sub-menu");
+const subMenuArrow = document.querySelectorAll(".sub-menu-arrow");
+
 for(let i = 0; i < subMenuTrigger.length; i++) {
     function adminDropDown(e) {
     
@@ -152,12 +182,76 @@ for(let i = 0; i < subMenuTrigger.length; i++) {
 }   
 
 
+// ALERT MESSAGE REMOVE
+const textArea = document.querySelectorAll(".text-area");
+const alertMessage = document.querySelector(".alert-message-container");
+const successMessage = document.querySelector(".success-message-container");
+
+if(textArea != null) {
+    for(text of textArea) {
+        text.addEventListener("focus", () => {
+            if(alertMessage) {
+                alertMessage.remove();
+            } else if(successMessage) {
+                successMessage.remove();
+            }
+        });
+    }
+}
+
+
+// RICH TEXT EDITOR
 tinymce.init({
     selector: '#content',
-    plugins: 'link casechange linkchecker autolink lists checklist image media mediaembed pageembed link permanentpen powerpaste table advtable tinymcespellchecker',
-    toolbar: 'image casechange numlist bullist formatpainter pageembed link permanentpen table',
+    plugins: 'link casechange linkchecker autolink lists checklist image media mediaembed pageembed link permanentpen powerpaste table advtable tinymcespellchecker emoticons wordcount',
+    toolbar: 'undo redo styleselect casechange wordcount image emoticons numlist bullist formatpainter pageembed link permanentpen table',
     toolbar_mode: 'floating',
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
     height: "380"
 });
+
+
+
+const deleteButton = document.querySelectorAll(".delete-button");
+
+for (let button of deleteButton) {
+    button.addEventListener("click", () => {
+
+        const removeArticle = "/admin/delete_article/" + button.parentNode.dataset.article_id;
+        const removeUser = "/admin/delete_user/" + button.parentNode.dataset.user_id;
+
+        if (button.parentNode.classList.contains("delete-article")) {
+            fetch(removeArticle, {
+                "method": "DELETE",
+                "headers":{
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "credentials": "same-origin"
+            })
+            .then(response => response.text())
+            .then(result => {
+                if(result) {
+                    button.parentNode.remove();
+                }
+            })
+            .catch(err => console.log(err));
+            
+        } else if (button.parentNode.classList.contains("delete-user")) {
+            fetch(removeUser, {
+                "method": "DELETE",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "credentials": "same-origin"
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result) {
+                    button.parentNode.remove();
+                }
+            })
+            .catch(err => console.log(err));
+        }
+    });
+}
