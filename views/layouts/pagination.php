@@ -1,7 +1,7 @@
 <div class="page-container">
     <ul class="pages display-flex align-center space-between">
 <?php
-    if ($url_parts[1] === "browse") {
+    if (isset($url_parts[2]) && $url_parts[2] === "category") {
         if ($page >= 2) {
             echo '
                     <li>
@@ -22,6 +22,50 @@
                         </a>
                     </li>
                 ';
+        }
+    } else if (isset($url_parts[2]) && $url_parts[2] === "date") {
+        if ($page >= 2) {
+            echo '
+                    <li>
+                        <a class="prev-page inline-block" href=' . HOME_PATH . 'browse/date/' . $articles[0]['created_at'] . '/?page=' . $prev . '>
+                            <span>&larr;</span>
+                            Anterior
+                        </a>
+                    </li>
+                ';
+        }
+    
+        if($page < $count - 4) {
+            echo '
+                <li>
+                    <a class="next-page inline-block" href=' . HOME_PATH . 'browse/date/' . $articles[0]['created_at'] . '/?page=' . $next . '>
+                        Seguinte
+                        <span>&rarr;</span>
+                    </a>
+                </li>
+            ';
+        }
+    }else if (isset($url_parts[2]) && $url_parts[2] === "author") {
+        if ($page >= 2) {
+            echo '
+                    <li>
+                        <a class="prev-page inline-block" href=' . HOME_PATH . 'browse/author/' . $articles[0]['user_id'] . '/?page=' . $prev . '>
+                            <span>&larr;</span>
+                            Anterior
+                        </a>
+                    </li>
+                ';
+        }
+    
+        if($page < $count - 4) {
+            echo '
+                <li>
+                    <a class="next-page inline-block" href=' . HOME_PATH . 'browse/author/' . $articles[0]['user_id'] . '/?page=' . $next . '>
+                        Seguinte
+                        <span>&rarr;</span>
+                    </a>
+                </li>
+            ';
         }
     } else if (isset($url_parts[2]) && $url_parts[2] === "delete_article") {
         if ($page >= 2) {
@@ -79,10 +123,54 @@
                 ';
         }
     
-        if($page < $count - 5) {
+        if($page < $count - 10) {
             echo '
                 <li>
                     <a class="next-page inline-block" href=' . HOME_PATH . 'admin/delete_user/?page=' . $next . '>
+                        Mais
+                        <span>&rarr;</span>
+                    </a>
+                </li>
+            ';
+        }
+    } else if (isset($url_parts[2]) && $url_parts[2] === "add_admin") {
+        if ($page >= 2) {
+            echo '
+                    <li>
+                        <a class="prev-page inline-block" href=' . HOME_PATH . 'admin/add_admin/?page=' . $prev .'>
+                            <span>&larr;</span>
+                            Menos
+                        </a>
+                    </li>
+                ';
+        }
+    
+        if($page < $count - 10) {
+            echo '
+                <li>
+                    <a class="next-page inline-block" href=' . HOME_PATH . 'admin/add_admin/?page=' . $next . '>
+                        Mais
+                        <span>&rarr;</span>
+                    </a>
+                </li>
+            ';
+        }
+    } else if (isset($url_parts[2]) && $url_parts[2] === "remove_admin") {
+        if ($page >= 2) {
+            echo '
+                    <li>
+                        <a class="prev-page inline-block" href=' . HOME_PATH . 'admin/remove_admin/?page=' . $prev .'>
+                            <span>&larr;</span>
+                            Menos
+                        </a>
+                    </li>
+                ';
+        }
+    
+        if($page < $count - 10) {
+            echo '
+                <li>
+                    <a class="next-page inline-block" href=' . HOME_PATH . 'admin/remove_admin/?page=' . $next . '>
                         Mais
                         <span>&rarr;</span>
                     </a>
