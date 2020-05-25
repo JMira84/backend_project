@@ -24,7 +24,7 @@ foreach ($articles as $article) {
     echo '
                                 <div class="delete-article field-container delete-field display-flex flex-row space-between" data-article_id="' . $article["article_id"] . '">
                                     <span>' . $article["title"] . '</span>
-                                    <button class="delete-button las la-trash" type="button" aria-label="Delete"></button>
+                                    <button class="crud-button las la-trash" type="button" aria-label="Eliminar"></button>
                                 </div>
         ';
 }
@@ -34,6 +34,13 @@ foreach ($articles as $article) {
                     </div><!--end admin-container-->
                 </div><!--end admin-flex-container-->
             </main>
+
+            <div class="message absolute">
+                <p class="message-content"></p>
+                <span class="modal-button">
+                    OK
+                </span>
+            </div>
         </div><!--end cointainer-->
 
         <?php require("layouts/back_to_top.php")?>

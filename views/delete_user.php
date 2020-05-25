@@ -24,7 +24,7 @@
         echo '
                             <div class="delete-user field-container delete-field display-flex flex-row space-between" data-user_id="' . $user["user_id"] . '">
                                 <span>' . $user["username"] . '</span>
-                                <button class="delete-button las la-trash" type="button" aria-label="Delete"></button>
+                                <button class="crud-button las la-trash" type="button" aria-label="Eliminar"></button>
                             </div>
         ';
     }
@@ -35,6 +35,13 @@
                     </div><!--end admin-container-->
                 </div><!--end admin-flex-container-->
             </main>
+
+            <div class="message absolute">
+                <p class="message-content"></p>
+                <span class="modal-button">
+                    OK
+                </span>
+            </div>
         </div><!--end cointainer-->
 
         <?php require("layouts/back_to_top.php")?>

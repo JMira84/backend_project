@@ -18,29 +18,31 @@
                             <a href="<?=HOME_PATH?>admin">Regressar</a>
                         </div>
                         <h2 class="admin-heading">Remover Administrador</h2>
-                        <div class="admin-menu-flex-container display-flex align-center">
-                            <form method="POST" action="<?=$_SERVER["REQUEST_URI"]?>" enctype="multipart/form-data">
+                        <div class="admin-menu-flex-container display-flex flex-column align-center">
 <?php
-    foreach($users as $user) {
-        if(!empty($user["is_admin"])) {
+    foreach($usersPaginations as $user) {
+        if($user["is_admin"]) {
             echo '
-                                    <div class="remove-admin-field field-container display-flex flex-row space-between">
-                                        <label for="remove_admin' . $user["user_id"] . '">' . $user["username"] . '</label>
-                                        <input id="remove_admin' . $user["user_id"] . '" type="checkbox" name="is_admin" value="0">
-                                        <input type="hidden" name="user_id" value="' . $user["user_id"] . '">
-                                    </div>
+                                <div class="remove-admin field-container delete-field display-flex flex-row space-between" data-user_id="' . $user["user_id"] . '">
+                                    <span>' . $user["username"] . '</span>
+                                    <button class="crud-button las la-user-minus" type="button" aria-label="Remover"></button>
+                                </div>
             ';
         }
     }
 ?>
-                                <div class="field-container submit-container">
-                                    <button class="create-btn" type="submit" name="send">Adicionar</button>
-                                </div>
-                            </form>
+                            <?php require("layouts/pagination.php")?>
                         </div><!--admin-menu-flex-container-->
                     </div><!--end admin-container-->
                 </div><!--end admin-flex-container-->
             </main>
+
+            <div class="message absolute">
+                <p class="message-content"></p>
+                <span class="modal-button">
+                    OK
+                </span>
+            </div>
         </div><!--end cointainer-->
 
         <?php require("layouts/back_to_top.php")?>
