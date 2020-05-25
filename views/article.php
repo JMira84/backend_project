@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?php $article["title"]?></title>
+        <title>Pé de Cereja - <?php echo $article["title"]?></title>
         <?php require("layouts/head.php")?>
     </head>
     <body>
@@ -58,38 +58,71 @@
                             <section class="comments-container">
                                 <h3 class="comments-title relative">Comentários</h3>
                                 <div class="comments-list-container">
+<?php
+    if(empty($comments)) {
+?>
+                                    <p>Este artigo ainda não tem comentários.</p>
+<?php
+        } else {
+?>
                                     <ul class="comments-list">
 <?php
-    foreach($comments as $comment) {
-        echo '
+        foreach($comments as $comment) {
+?>
                                         <li>
                                             <div class="comment-body display-flex flex-no-wrap">
                                                 <div class="author-avatar display-flex justify-center">
-                                                    <img src="/uploads/users/' . $comment["profile_img"] . '" alt="">
+<?php
+            if(empty($comment["profile_img"])) {
+?>
+                                                    <img src="/assets/images/generic_profile_img.png" alt="">
+<?php
+            } else {
+?>
+                                                    <img src="/uploads/users/<?=$comment["profile_img"]?>" alt="">
+<?php
+            }
+?>
                                                 </div>
                                                 <div class="comment-content">
                                                     <div class="author-and-date display-flex align-center flex-no-wrap space-between">
                                                         <div class="comment-author">
-                                                            <h3>' . $comment["username"] . '</h3>
+                                                            <h3><?=$comment["username"]?></h3>
+<?php
+            if($comment["parent_id"]) {
+?>
+                                                        <div class="reply-to">
+                                                            <p>
+                                                                Respondeu a 
+                                                                <span><?=$comment["parent_username"]?></span>
+                                                            </p>
+                                                        </div>
+<?php
+            }
+?>
                                                         </div>
                                                         <div class="comment-date-and-reply display-flex align-center relative">
-                                                            <time datetime="' . date("j M Y, H:i", strtotime($comment["created_at"])) . '">' . strftime('%e %B, %Y', strtotime($comment["created_at"])) . '</time>
-                                                            <a class="comment-reply-link" href="#comments-form">
+                                                            <time datetime="<?=date("j M Y, H:i", strtotime($comment["created_at"]))?>"><?=strftime('%e %B, %Y', strtotime($comment["created_at"]))?></time>
+                                                            <a class="comment-reply-link" href="<?=HOME_PATH?>article/<?=$url_parts[2]?>/comments/<?=$comment["comment_id"]?>/#comment-area">
                                                                 Responder
                                                             </a>
                                                         </div>
                                                     </div><!--end author-and-date-->
                                                     <div class="text">
-                                                        <p>' . $comment["comment_content"] . '.</p>
+                                                        <p><?=$comment["comment_content"]?></p>
                                                     </div>
                                                 </div><!--end comment-text-->
                                             </div><!--end comment-body-->
                                         </li>
-        ';
+<?php
+        }
+?>
+                                    <?php require("layouts/pagination.php")?>
+                                    </ul>
+<?php
     }
 ?>
-                                    </ul>
-                                </div><!--end comments-list-->
+                                </div><!--end comments-list-container-->
 
 <?php
     if(isset($_SESSION["user_id"])) {
@@ -109,10 +142,11 @@
         ';
     }
 ?>
-                                            <textarea class="comment-area" id="comment-area" name="comment_content" maxlength="65535" cols="58" rows="6"></textarea>
+                                            <textarea class="text-area" id="comment-area" name="comment_content" maxlength="65535" cols="58" rows="6"></textarea>
                                         </div>
                                         <div class="inline-block">
                                             <input type="hidden" name="article_id" value="<?=$article["article_id"]?>">
+                                            <input type="hidden" name="parent_id" value="<?php echo !empty($url_parts[4]) ? (int)$url_parts[4] : 0; ?>">
                                             <button class="action-button" type="submit" name="send">Comentar</button>
                                         </div>
                                     </form>
