@@ -213,13 +213,16 @@ tinymce.init({
 
 
 
-const deleteButton = document.querySelectorAll(".delete-button");
+const crudButtons = document.querySelectorAll(".crud-button");
 
-for (let button of deleteButton) {
+for (let button of crudButtons) {
     button.addEventListener("click", () => {
 
         const removeArticle = "/admin/delete_article/" + button.parentNode.dataset.article_id;
         const removeUser = "/admin/delete_user/" + button.parentNode.dataset.user_id;
+
+        const addAdmin = "/admin/add_admin/" + button.parentNode.dataset.user_id;
+        const removeAdmin = "/admin/remove_admin/" + button.parentNode.dataset.user_id;
 
         if (button.parentNode.classList.contains("delete-article")) {
             fetch(removeArticle, {
@@ -240,6 +243,38 @@ for (let button of deleteButton) {
         } else if (button.parentNode.classList.contains("delete-user")) {
             fetch(removeUser, {
                 "method": "DELETE",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "credentials": "same-origin"
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result) {
+                    button.parentNode.remove();
+                }
+            })
+            .catch(err => console.log(err));
+
+        } else if (button.parentNode.classList.contains("add-admin")) {
+            fetch(addAdmin, {
+                "method": "PUT",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "credentials": "same-origin"
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result) {
+                    button.parentNode.remove();
+                }
+            })
+            .catch(err => console.log(err));
+
+        } else if (button.parentNode.classList.contains("remove-admin")) {
+            fetch(removeAdmin, {
+                "method": "PUT",
                 "headers": {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
