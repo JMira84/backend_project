@@ -12,7 +12,7 @@ define("HOME_PATH", dirname($_SERVER["SCRIPT_NAME"]));
 
 $controller = "home";
 
-$controllers = ["home", "article", "browse", "admin", "access"];
+$controllers = ["home", "article", "browse", "admin", "access", "user", "contact"];
 
 if(isset($url_parts[1]) && in_array($url_parts[1], $controllers)) {
     $controller = $url_parts[1];
