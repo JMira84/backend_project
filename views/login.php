@@ -40,7 +40,7 @@
                         </form>
                     </div><!--end form-container-->
                     <div class="register-info-container">
-                        <p class="register-info">Ainda não tem conta? Registe-se <a class="register-link" href="<?=HOME_PATH?>access/register">aqui</a>.</p>
+                        <p class="register-info">Ainda não tens conta? Regista-te <a class="register-link" href="<?=HOME_PATH?>access/register">aqui</a>.</p>
                     </div>
                 </div>
             </main>
