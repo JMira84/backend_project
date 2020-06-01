@@ -3,19 +3,44 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pé de Cereja</title>
+        <title>Pé de Cereja - HOME</title>
         <?php require("layouts/head.php")?>
     </head>
     <body>
         <?php require("layouts/header.php")?>
-
+<?php
+    if(empty($articles) && empty($latestArticles)) {
+        if(isset($_SESSION["user_id"]) && $_SESSION["is_admin"]) {
+            echo '
+                <div class="empty-articles-div display-flex flex-column align-center justify-center">
+                    <p>Olá <span>' . $_SESSION["username"] . '</span>!</p>
+                    <p>Carrega <a href="' . HOME_PATH . 'admin/create_article">aqui</a> para criares o teu primeiro artigo.</p>
+                </div><!--end empty-articles-div-->
+            ';
+        } else if(isset($_SESSION["user_id"]) && !$_SESSION["is_admin"]) {
+            echo '
+                <div class="empty-articles-div display-flex flex-column align-center justify-center">
+                    <p>Olá <span>' . $_SESSION["username"] . '</span>!</p>
+                    <p>Este blog ainda não tem artigos. Volta mais tarde.</p>
+                </div><!--end empty-articles-div-->
+            ';
+        } else {
+            echo '
+                <div class="empty-articles-div display-flex flex-column align-center justify-center">
+                    <p>Bem-vindo(a) ao Pé de Cereja!</p>
+                    <p>Este blog ainda não tem artigos. Volta mais tarde.</p>
+                </div><!--end empty-articles-div-->
+            ';
+        }
+    } else  {
+?>
         <div class="carousel relative">
 <?php
-    foreach($latestArticles as $latestArticle) {
+foreach($latestArticles as $latestArticle) {
         echo '
             <div class="slides carousel-content fade flex-column justify-center align-center relative">
                 <div class="carousel-img">
-                    <img src="/assets/images/'. $latestArticle["article_img"] . '" alt="">
+                    <img src="/uploads/articles/'. $latestArticle["article_img"] . '" alt="">
                 </div>
                 <div class="carousel-elements absolute display-flex flex-column align-center">
                     <div class="carousel-category">
@@ -54,7 +79,7 @@
                         <article class="article-list display-flex flex-column align-center">
                             <figure>
                                 <a href="' . HOME_PATH . 'article/' . $article["article_id"] . '">
-                                    <img src="/assets/images/' . $article["article_img"] . '" alt="">
+                                    <img src="/uploads/articles/' . $article["article_img"] . '" alt="">
                                 </a>
                             </figure>
                             <div class="article-list-category">
@@ -62,10 +87,10 @@
                             </div>
                             <div class="article-list-title">
                                 <h2>
-                                    <a class="title-link" href="' . HOME_PATH . 'article/' . $article["article_id"] . '">' . $article["title"] . '</a>
+                                    <a class="title-link" href="' . HOME_PATH . 'article/' . $article["article_id"] . '" title="' . $article["title"] . '">' . substr($article["title"], 0, 20) . '...</a>
                                 </h2>
                             </div>
-                            <div class="article-list-content">
+                            <div class="article-list-content display-flex flex-column align-center">
                                 ' . substr($article["content"], 0, 180) . '...
                             </div>
                             <div class="read-more-container">
@@ -76,7 +101,7 @@
                                     <time datetime="' . strtotime($article["created_at"]) . '">' . strftime('%e %B %Y', strtotime($article["created_at"])) . '</time>
                                 </div>
                                 <div class="article-list-author">
-                                    <p>por <a href="" title="Artigos de ' . $article["username"] . '">' . $article["username"] . '</a></p>
+                                    <p>por <a href="' . HOME_PATH . 'browse/author/' . $article["user_id"] . '" title="Artigos de ' . $article["username"] . '">' . $article["username"] . '</a></p>
                                 </div>
                             </div>
                         </article>
@@ -85,17 +110,7 @@
 ?>
                     </div>
                     <!--end article-list-container-->
-                    <div class="pagination">
-                        <ul class="page-list display-flex justify-center flex-no-wrap">
-                            <li><a class="pages display-flex justify-center align-center" href="">1</a></li>
-                            <li><a class="pages display-flex justify-center align-center" href="">2</a></li>
-                            <li>
-                                <a class="pages display-flex justify-center align-center" href="">
-                                    <i class="las la-angle-double-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <?php require("layouts/pagination.php")?>
                     <!--end pagination-->
                 </main>
 
@@ -108,6 +123,10 @@
 
         <?php require("layouts/background.php")?>
 
+        <?php
+    }
+?>
         <?php require("layouts/footer.php")?>
+
     </body>
 </html>

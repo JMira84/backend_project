@@ -213,6 +213,23 @@ tinymce.init({
 
 
 
+function modalMessage(text) {
+    const message = document.querySelectorAll(".message");
+    const messageContent = document.querySelectorAll(".message-content");
+    const modalButton = document.querySelectorAll(".modal-button");
+
+    for (let i = 0; i < message.length; i++) {
+        message[i].classList.add("show-message");
+        messageContent[i].textContent = text;
+        changeBrightness.classList.add("change-brightness");
+
+        modalButton[i].addEventListener("click", () => {
+            message[i].classList.remove("show-message");
+            changeBrightness.classList.remove("change-brightness");
+        });
+    }
+}
+
 const crudButtons = document.querySelectorAll(".crud-button");
 
 for (let button of crudButtons) {
@@ -236,6 +253,10 @@ for (let button of crudButtons) {
             .then(result => {
                 if(result) {
                     button.parentNode.remove();
+
+                    const text = "Artigo eliminado com sucesso!"
+
+                    modalMessage(text);
                 }
             })
             .catch(err => console.log(err));
@@ -252,6 +273,10 @@ for (let button of crudButtons) {
             .then(result => {
                 if (result) {
                     button.parentNode.remove();
+
+                    const text = "Utilizador eliminado com sucesso!"
+
+                    modalMessage(text);
                 }
             })
             .catch(err => console.log(err));
@@ -268,6 +293,10 @@ for (let button of crudButtons) {
             .then(result => {
                 if (result) {
                     button.parentNode.remove();
+
+                    const text = "Administrador adicionado com sucesso!"
+
+                    modalMessage(text);
                 }
             })
             .catch(err => console.log(err));
@@ -284,6 +313,10 @@ for (let button of crudButtons) {
             .then(result => {
                 if (result) {
                     button.parentNode.remove();
+
+                    const text = "Administrador removido com sucesso!"
+
+                    modalMessage(text);
                 }
             })
             .catch(err => console.log(err));

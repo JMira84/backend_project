@@ -44,22 +44,22 @@
     } else {
 ?>
                 <div class="logged-user-info relative">
-                    <div class="sub-list-trigger display-flex align-center space-around">
+                    <div class="sub-list-trigger display-flex align-center">
 <?php
-        if(empty($user["profile_img"])) {
+        if(empty($_SESSION["profile_img"])) {
 ?>
                         <img class="sub-list-trigger" src="/assets/images/generic_profile_img.png" alt="">
 <?php
         } else {
 ?>
-                        <img class="sub-list-trigger" src="/uploads/users/<?=$user["profile_img"];?>" alt="">
+                        <img class="sub-list-trigger" src="/uploads/users/<?=$_SESSION["profile_img"];?>" alt="">
 <?php
         }
 ?>
-                        <span class="sub-list-trigger"><?=$user["username"]?></span>
+                        <span class="sub-list-trigger"><?=$_SESSION["username"]?></span>
                     </div>
                     <ul class="logged-list sub-list absolute">
-                        <li><a class="display-block" href="<?=HOME_PATH?>access/edit_profile">Editar Perfil</a></li>
+                        <li><a class="display-block" href="<?=HOME_PATH?>user/edit_profile">Editar Perfil</a></li>
 <?php
         if(!empty($_SESSION["is_admin"])) {
 ?>

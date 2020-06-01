@@ -29,18 +29,18 @@
                                                     <input id="profile_img" type="file" name="profile_img" accept=".png, .jpeg, .jpg">
                                                 </div>
 <?php
-    if(isset($_SESSION["is_admin"])) {
+    if((bool)$_SESSION["is_admin"]) {
 ?>
                                                 <div class="field-container display-flex flex-column">
                                                     <label for="about">Sobre Ti</label>
-                                                    <textarea id="about" name="about" maxlength="65535" cols="58" rows="6" autocomplete="off"><?=$user["about"]?></textarea>
+                                                    <textarea id="about" name="about" maxlength="65535" cols="58" rows="6" autocomplete="off"><?=$_SESSION["about"]?></textarea>
                                                 </div>
 <?php
     }
 ?>
                                                 <div class="field-container display-flex flex-column">
                                                     <label for="username">Alterar Username</label>
-                                                    <input id="username" type="text" name="username" value="<?=$user["username"]?>" minlength="2" maxlength="120" autofocus autocomplete="off">
+                                                    <input id="username" type="text" name="username" value="<?=$_SESSION["username"]?>" minlength="2" maxlength="120" autofocus autocomplete="off">
                                                 </div>
                                                 <div class="inline-block">
                                                     <button class="action-button" type="submit" name="send_new_info">Alterar</button>

@@ -20,19 +20,6 @@
             </div>
         </div>
 
-        <div class="search">
-            <form class="aside-form display-flex flex-column align-center" method="POST" action="home.html">
-                <label class="search-label relative" for="search">Procurar</label>
-                <div class="search-input-row display-flex relative">
-                    <input class="search" id="search" type="text" name="search" autocomplete="off">
-                    <button class="search-btn absolute" type="submit" name="send">
-                        <i class="search-icon las la-search"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-        <!--end search-->
-
         <div class="latest-articles-container display-flex flex-column align-center">
             <h2>Artigos recentes</h2>
 <?php
@@ -46,7 +33,7 @@
                         </h3>
                         <time datetime="' . date("Y-m-d H:i:s", strtotime($latestArticle["created_at"])) . '">' . strftime("%e %B %Y", strtotime($latestArticle["created_at"])) . '</time>
                     </div>
-                    <div class="latest-articles-img">
+                    <div class="latest-articles-img display-flex justify-center">
                         <img src="/uploads/articles/' . $latestArticle["article_img"] . '" alt="">
                     </div>
                 </div>
@@ -57,6 +44,23 @@
 ?>
         </div>
         <!--end latest-articles-container-->
+
+        <div class="archive display-flex flex-column align-center">
+            <h2>Arquivos</h2>
+            <div class="date-list">
+                <ul>
+<?php
+    foreach($datesList as $date) {
+        echo '
+                    <li>
+                        <a href="' . HOME_PATH . 'browse/date/' . date('n', strtotime($date["created_at"])) . '/' . date('Y', strtotime($date["created_at"])) . '">' . ucfirst(strftime('%B %Y', strtotime($date["created_at"]))) . '</a>
+                    </li>
+        ';
+    }
+?>
+                </ul>
+            </div><!--end date-list-->
+        </div><!--end archive-->
     </div>
     <!--end sidebar-->
 </aside>

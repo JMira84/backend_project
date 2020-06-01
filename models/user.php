@@ -18,7 +18,7 @@ class User extends Base {
 
     public function getPaginationList() {
         $page = 0;
-        $per_page = 4;
+        $per_page = 10;
         $page_counter = 1;
         $next = $page_counter + 1;
         $prev = $page_counter - 1;
@@ -74,11 +74,11 @@ class User extends Base {
 
         if(
             !empty($data["username"]) &&
-            mb_strlen($data["username"]) > 2 ||
-            mb_strlen($data["username"]) <= 120 &&
+            (mb_strlen($data["username"]) > 2 ||
+            mb_strlen($data["username"]) <= 120) &&
             !empty($data["password"]) &&
-            mb_strlen($data["password"]) > 6 ||
-            mb_strlen($data["password"]) <= 1000 &&
+            (mb_strlen($data["password"]) > 6 ||
+            mb_strlen($data["password"]) <= 1000) &&
             $data["password"] === $data["rep_password"] &&
             filter_var($data["email"], FILTER_VALIDATE_EMAIL)
         ) {
@@ -137,7 +137,32 @@ class User extends Base {
     public function updateInfo($data) {
         $data = $this->sanitizer($data);
 
-        $image = $this->uploadImage();
+        $accepts = [
+            "png" => "image/png",
+            "jpg" => "image/jpeg"
+        ];
+
+        if (!empty($_FILES["profile_img"]["tmp_name"])) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $detected_type = finfo_file($finfo, $_FILES["profile_img"]["tmp_name"]);
+
+            if (
+                $_FILES["profile_img"]["error"] === 0 &&
+                in_array($detected_type, $accepts) &&
+                $_FILES["profile_img"]["size"] > 0 &&
+                $_FILES["profile_img"]["size"] < 20000000
+            ) {
+
+                $file_name = date('YmdHis') . "_" . mt_rand(100000, 999999) . "." . array_search($detected_type, $accepts);
+                move_uploaded_file($_FILES["profile_img"]["tmp_name"], "uploads/users/" . $file_name);
+
+                $image = $file_name;
+            } else {
+                die("O upload falhou");
+            }
+        } else {
+            $image = $_SESSION["profile_img"];
+        }
             
         $query = $this->db->prepare("
             UPDATE users
@@ -169,8 +194,8 @@ class User extends Base {
 
         if (
             !empty($data["password"]) &&
-            mb_strlen($data["password"]) > 6 ||
-            mb_strlen($data["password"]) <= 1000 &&
+            (mb_strlen($data["password"]) > 6 ||
+            mb_strlen($data["password"]) <= 1000) &&
             $data["password"] === $data["rep_password"]
         ) {
             $query = $this->db->prepare("
@@ -189,38 +214,36 @@ class User extends Base {
         }
     }
 
-    public function addAdmin($data) {
+    public function addAdmin($id) {
         $query = $this->db->prepare("
             UPDATE users
-            SET is_admin = ?
+            SET is_admin = 1
             WHERE user_id = ?
         ");
 
         $result = $query->execute([
-            $data["is_admin"],
-            $data["user_id"]
+            $id
         ]);
 
         return $result;
     }
 
-    public function removeAdmin($data)
+    public function removeAdmin($id)
     {
         $query = $this->db->prepare("
             UPDATE users
-            SET is_admin = ?
+            SET is_admin = 0
             WHERE user_id = ?
         ");
 
         $result = $query->execute([
-            $data["is_admin"],
-            $data["user_id"]
+            $id
         ]);
         
         return $result;
     }
 
-    public function delete($data)
+    public function delete($id)
     {
         $query = $this->db->prepare("
             DELETE
@@ -228,9 +251,7 @@ class User extends Base {
             WHERE user_id = ?
         ");
 
-        $result = $query->execute([
-            $data["user_id"]
-        ]);
+        $result = $query->execute([ $id ]);
 
         return $result;
     }
