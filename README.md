@@ -2,5 +2,5 @@
 ## Curso de Fullstack Web Developer da FLAG
 
 **Aluno:** João Mira  
-**Projecto:** Blog Pé de Cereja 
+**Projecto:** Blog Pé de Cereja  
 **Nota:** 18
